@@ -1,0 +1,66 @@
+<!-- B. Manage Debts & Loans Overlay Sub-view -->
+<div class="sub-view-overlay" id="overlay-debts">
+    <div class="sub-view-header">
+        <span class="back-icon-btn material-icons-round" onclick="closeOverlayView('debts')">arrow_back</span>
+        <h3>Manage Debts</h3>
+    </div>
+    
+    <div class="tax-alert-info">
+        <span class="material-icons-round info-icon">people</span>
+        <span>
+            <strong>Debts & Loans Ledger</strong>: Lending decreases your wallet balance as capital leaves. Borrowing increases your wallet balance as cash enters. Settle obligations when payments are finalized to automatically synchronize bank reserves.
+        </span>
+    </div>
+
+    <!-- Summary Metrics Card -->
+    <div class="analytics-metric-grid" style="margin-bottom: 16px;">
+        <div class="analytics-card-premium" style="border-color: rgba(16, 185, 129, 0.25);">
+            <span class="label" style="color:var(--income)">Total Lent</span>
+            <div class="value" id="debts-lent-val" style="color:var(--income)">₹0</div>
+            <span style="font-size: 8px; color:var(--text-secondary)">To be collected</span>
+        </div>
+        <div class="analytics-card-premium" style="border-color: rgba(244, 63, 94, 0.25);">
+            <span class="label" style="color:var(--expense)">Total Borrowed</span>
+            <div class="value" id="debts-borrowed-val" style="color:var(--expense)">₹0</div>
+            <span style="font-size: 8px; color:var(--text-secondary)">To be repaid</span>
+        </div>
+    </div>
+
+    <!-- Active vs Settled Debt Switcher Tabs -->
+    <div class="sub-view-tabs" style="margin-bottom: 16px;">
+        <div class="sub-view-tab-btn active" id="debt-tab-active" onclick="switchDebtFilterTab('ACTIVE')">Active</div>
+        <div class="sub-view-tab-btn" id="debt-tab-settled" onclick="switchDebtFilterTab('SETTLED')">Settled</div>
+    </div>
+
+    <label class="form-label" id="debts-list-label">Active Debt Records</label>
+    <div id="settings-debts-list" style="margin-bottom: 24px; display: flex; flex-direction: column; gap: 10px;">
+        <!-- Loaded dynamically via JS -->
+    </div>
+
+    <div style="border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px;">
+        <h4 style="margin: 0 0 12px 0; font-size: 14px; color: var(--primary);">Add Debt / Loan Record</h4>
+
+        <label class="form-label">Person Name</label>
+        <input type="text" class="custom-text-input" placeholder="E.g., Sakthi, Sam, Boss" id="debt-person-input" style="margin-bottom: 12px;">
+
+        <!-- Type selector pills -->
+        <label class="form-label">Debt Type</label>
+        <div class="type-toggle" style="margin-bottom: 12px; height: 38px;">
+            <div class="type-toggle-btn active" id="debt-type-lent-btn" onclick="setDebtFormType('LENT')" style="font-size: 11px;">Lent (Owed to Me)</div>
+            <div class="type-toggle-btn" id="debt-type-borrowed-btn" onclick="setDebtFormType('BORROWED')" style="font-size: 11px;">Borrowed (I Owe)</div>
+        </div>
+
+        <label class="form-label">Amount (INR)</label>
+        <input type="number" class="custom-text-input" placeholder="Amount (e.g. 5000)" id="debt-amount-input" style="margin-bottom: 12px;">
+
+        <label class="form-label">Linked Account</label>
+        <div class="chip-grid" id="debt-wallet-chips" style="margin-bottom: 16px;">
+            <!-- Seeded dynamically via JS -->
+        </div>
+
+        <label class="form-label">Description / Notes</label>
+        <input type="text" class="custom-text-input" placeholder="E.g. Travel ticket, lunch bill, cash change" id="debt-notes-input" style="margin-bottom: 20px;">
+
+        <button class="submit-btn" style="padding: 12px;" onclick="addCustomDebtRecord()">Save Debt Record</button>
+    </div>
+</div>

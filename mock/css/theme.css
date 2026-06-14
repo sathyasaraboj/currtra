@@ -1,0 +1,21 @@
+        :root {
+            --primary: #C5A880;
+            --primary-dark: #D4AF37;
+            --primary-glow: rgba(197, 168, 128, 0.12);
+            --bg-dark: #08090C;
+            --surface-dark: rgba(22, 25, 31, 0.75);
+            --surface-variant: rgba(30, 33, 41, 0.9);
+            --income: #10B981;
+            --expense: #F43F5E;
+            --saving: #06B6D4;
+            --text-white: #F8F9FA;
+            --text-secondary: #8E9AA6;
+            --border: rgba(197, 168, 128, 0.15);
+            --glow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-drag: none;
+        }

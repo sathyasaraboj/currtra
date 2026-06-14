@@ -1,0 +1,65 @@
+<!-- 3. ADD TRANSACTION SCREEN TAB -->
+<div class="screen-tab" id="tab-add">
+    <h3 style="margin: 0 0 16px 0; font-size: 18px;">Record Transaction</h3>
+
+    <!-- Type Toggle -->
+    <div class="type-toggle">
+        <div class="type-toggle-btn active" onclick="setFormType('EXPENSE')">Expense</div>
+        <div class="type-toggle-btn" onclick="setFormType('INCOME')">Income</div>
+        <div class="type-toggle-btn" onclick="setFormType('SAVING')">Saving</div>
+        <div class="type-toggle-btn" onclick="setFormType('TRANSFER')">Transfer</div>
+    </div>
+
+    <!-- Amount Box -->
+    <div class="input-amount-box">
+        <span class="prefix">₹</span>
+        <input type="number" id="form-amount" placeholder="0" min="1">
+    </div>
+
+    <!-- Bank Account Chips -->
+    <label class="form-label">Debit Source Account</label>
+    <div class="chip-grid" id="source-wallet-chips">
+        <!-- Seeded dynamically via JS -->
+    </div>
+
+    <!-- Target Account Section (Transfer) -->
+    <div id="transfer-target-section" style="display: none;">
+        <label class="form-label">Credit Target Account</label>
+        <div class="chip-grid" id="target-wallet-chips">
+            <!-- Seeded dynamically via JS -->
+        </div>
+    </div>
+
+    <!-- Relational Payment Dropdowns (Updated Dynamically via JS) -->
+    <label class="form-label">Spent Via (Payment Mode)</label>
+    <div style="position: relative; width: 100%; margin-bottom: 20px;">
+        <div class="custom-dropdown" onclick="toggleDropdown()">
+            <span id="selected-payment-mode">UPI</span>
+            <span class="material-icons-round" style="font-size: 18px;">expand_more</span>
+        </div>
+        <div class="dropdown-menu-list" id="payment-mode-dropdown-list">
+            <!-- Populated dynamically via JS -->
+        </div>
+    </div>
+
+    <!-- Categories select chips -->
+    <div id="category-selection-section">
+        <label class="form-label">Category</label>
+        <div class="chip-grid" id="form-category-chips">
+            <!-- Seeded via JS -->
+        </div>
+    </div>
+
+    <!-- Note input -->
+    <label class="form-label">Description / Notes</label>
+    <input type="text" class="custom-text-input" id="form-note" placeholder="E.g., Dinner bill, salary, transfer note..." style="margin-bottom: 20px;">
+
+    <!-- Tag selector -->
+    <label class="form-label">Transaction #Tag</label>
+    <input type="text" class="custom-text-input" id="form-tag" placeholder="E.g., #trip, #office, #gifts" style="margin-bottom: 12px;">
+    <div class="chip-grid" id="form-preset-tags" style="margin-bottom: 20px;">
+        <!-- Preset tags loaded dynamically via JS -->
+    </div>
+
+    <button class="submit-btn" onclick="executeFormSubmit()">Save Transaction</button>
+</div>

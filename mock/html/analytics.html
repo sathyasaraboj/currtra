@@ -1,0 +1,166 @@
+<!-- 4. ANALYTICS & INSIGHTS SCREEN TAB -->
+<div class="screen-tab" id="tab-analytics">
+    <h3 style="margin: 0 0 4px 0; font-size: 18px;">Insights & Analytics</h3>
+    <p style="color: var(--text-secondary); font-size: 11px; margin: 0 0 12px 0;">Financial trends, savings rate, and category breakdowns.</p>
+
+    <!-- Dynamic Timeline Switcher Pills -->
+    <div class="time-filter-tabs">
+        <div class="time-filter-btn" id="time-filter-week" onclick="setAnalyticsTimeRange('WEEK')">This Week</div>
+        <div class="time-filter-btn active" id="time-filter-month" onclick="setAnalyticsTimeRange('MONTH')">This Month</div>
+        <div class="time-filter-btn" id="time-filter-all" onclick="setAnalyticsTimeRange('ALL')">All Time</div>
+    </div>
+
+    <!-- Sub-tabs within Analytics: Overview, Trends, Budgets -->
+    <div class="sub-view-tabs" style="margin-bottom: 20px;">
+        <div class="sub-view-tab-btn active" id="analytics-sub-tab-overview" onclick="switchAnalyticsSubTab('OVERVIEW')">Overview</div>
+        <div class="sub-view-tab-btn" id="analytics-sub-tab-trends" onclick="switchAnalyticsSubTab('TRENDS')">Trends</div>
+        <div class="sub-view-tab-btn" id="analytics-sub-tab-budgets" onclick="switchAnalyticsSubTab('BUDGETS')">Budgets</div>
+    </div>
+
+    <!-- SUB-TAB CONTENT A: OVERVIEW METRICS -->
+    <div id="analytics-panel-overview">
+        <div class="analytics-metric-grid">
+            <div class="analytics-card-premium">
+                <span class="label">Health Score</span>
+                <div class="value" id="analytics-health-val">85/100</div>
+                <span class="change-indicator positive" id="analytics-health-status">
+                    <span class="material-icons-round" style="font-size:10px; vertical-align:middle; margin-right:2px;">trending_up</span>
+                    Excellent Health
+                </span>
+            </div>
+            <div class="analytics-card-premium">
+                <span class="label">Savings Rate</span>
+                <div class="value" id="analytics-savings-rate-val">23.1%</div>
+                <span class="change-indicator positive" id="analytics-savings-status">
+                    <span class="material-icons-round" style="font-size:10px; vertical-align:middle; margin-right:2px;">check_circle</span>
+                    Ideal Rate (&gt;20%)
+                </span>
+            </div>
+        </div>
+
+        <!-- Monthly Surplus Card -->
+        <div class="analytics-card-premium" style="margin-bottom: 16px; background: linear-gradient(135deg, rgba(22, 25, 31, 0.75) 0%, rgba(16, 185, 129, 0.05) 100%); border-color: rgba(16, 185, 129, 0.25);">
+            <span class="label" style="color:var(--income);" id="analytics-surplus-label">Monthly Cash Flow Surplus</span>
+            <div class="value" id="analytics-surplus-val" style="font-size:24px; color:var(--income);">₹17,500.50</div>
+            <span style="font-size:10px; color:var(--text-secondary); display:block; margin-top:4px;" id="analytics-surplus-desc">Your income exceeds all spending allocations. Good job!</span>
+        </div>
+
+        <!-- Automated Runways & Interactive Insight Card -->
+        <div class="insight-carousel-container" id="analytics-insight-container">
+            <!-- Programmatic insight cards injected here -->
+        </div>
+
+        <div class="analytics-metric-grid">
+            <div class="analytics-card-premium">
+                <span class="label">Daily Avg Spent</span>
+                <div class="value" id="analytics-daily-avg-val">₹800</div>
+                <span style="font-size:9px; color:var(--text-secondary);" id="analytics-daily-avg-period">30 Days Average</span>
+            </div>
+            <div class="analytics-card-premium">
+                <span class="label">Disposable Cash</span>
+                <div class="value" id="analytics-disposable-val">₹4,000</div>
+                <span style="font-size:9px; color:var(--text-secondary);">Cash Reserve Wallet</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUB-TAB CONTENT B: TRENDS & CONIC DONUT -->
+    <div id="analytics-panel-trends" style="display: none;">
+        <!-- Custom CSS Conic Donut Chart -->
+        <div class="trends-chart-mock">
+            <div class="trends-chart-header">
+                <span class="trends-chart-title">Expense Distribution</span>
+                <span style="font-size:10px; color:var(--text-secondary);" id="analytics-total-exp-label">Total: ₹11,500</span>
+            </div>
+            
+            <div class="donut-chart-container">
+                <div class="donut-chart-mock" id="analytics-donut-graphic" style="cursor: pointer;">
+                    <div class="donut-chart-center-text">
+                        <span class="title">Expenses</span>
+                        <div class="value" id="analytics-donut-center-val">42% Spent</div>
+                    </div>
+                </div>
+                
+                <div class="donut-legend" id="analytics-donut-legend">
+                    <!-- Legend list rendered dynamically via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Cash Flow Bar chart -->
+        <div class="trends-chart-mock">
+            <div class="trends-chart-header">
+                <span class="trends-chart-title">Cash Flow Chronology</span>
+                <span style="font-size: 10px; color:var(--text-secondary);" id="analytics-chronology-title">4 Week Analytics</span>
+            </div>
+            
+            <div class="trends-chart-bars" id="analytics-bars-container">
+                <div class="trends-bar-pair-container" id="trends-bar-wk1" onclick="selectChronologyWeek(1)">
+                    <div class="trends-bar-pair">
+                        <div class="trends-bar income" id="trends-bar-inc1" style="height: 60px;"></div>
+                        <div class="trends-bar expense" id="trends-bar-exp1" style="height: 35px;"></div>
+                    </div>
+                    <span class="trends-bar-label" id="trends-label-wk1">Wk 1</span>
+                </div>
+                <div class="trends-bar-pair-container" id="trends-bar-wk2" onclick="selectChronologyWeek(2)">
+                    <div class="trends-bar-pair">
+                        <div class="trends-bar income" id="trends-bar-inc2" style="height: 80px;"></div>
+                        <div class="trends-bar expense" id="trends-bar-exp2" style="height: 45px;"></div>
+                    </div>
+                    <span class="trends-bar-label" id="trends-label-wk2">Wk 2</span>
+                </div>
+                <div class="trends-bar-pair-container" id="trends-bar-wk3" onclick="selectChronologyWeek(3)">
+                    <div class="trends-bar-pair">
+                        <div class="trends-bar income" id="trends-bar-inc3" style="height: 70px;"></div>
+                        <div class="trends-bar expense" id="trends-bar-exp3" style="height: 50px;"></div>
+                    </div>
+                    <span class="trends-bar-label" id="trends-label-wk3">Wk 3</span>
+                </div>
+                <div class="trends-bar-pair-container" id="trends-bar-wk4" onclick="selectChronologyWeek(4)">
+                    <div class="trends-bar-pair">
+                        <div class="trends-bar income" id="trends-bar-inc4" style="height: 95px;"></div>
+                        <div class="trends-bar expense" id="trends-bar-exp4" style="height: 60px;"></div>
+                    </div>
+                    <span class="trends-bar-label" id="trends-label-wk4">Wk 4</span>
+                </div>
+            </div>
+
+            <div class="trends-legend-indicator">
+                <div style="display:flex; align-items:center; gap:4px;"><span style="width:8px; height:8px; background-color:var(--income); border-radius:50%;"></span> Income</div>
+                <div style="display:flex; align-items:center; gap:4px;"><span style="width:8px; height:8px; background-color:var(--expense); border-radius:50%;"></span> Expenses</div>
+            </div>
+        </div>
+
+        <!-- Interactive Drilldown Summary -->
+        <div class="interactive-drilldown-card" id="analytics-drilldown-panel" style="display: none;">
+            <div class="drilldown-header">
+                <h4 id="drilldown-title">Food & Dining Breakdown</h4>
+                <span class="close-drilldown-btn material-icons-round" onclick="closeDrilldownPanel()">close</span>
+            </div>
+            <div id="drilldown-stats-row" class="drilldown-stats">
+                <div class="drilldown-stat-item">
+                    <span class="lbl">Total Flowed</span>
+                    <span class="val" id="drilldown-total-flow">₹4,000</span>
+                </div>
+                <div class="drilldown-stat-item">
+                    <span class="lbl">Tx Count</span>
+                    <span class="val" id="drilldown-tx-count">1</span>
+                </div>
+                <div class="drilldown-stat-item">
+                    <span class="lbl">Average Size</span>
+                    <span class="val" id="drilldown-avg-size">₹4,000</span>
+                </div>
+            </div>
+            <div class="drilldown-tx-list" id="drilldown-transactions-list">
+                <!-- Loaded transactions dynamically via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SUB-TAB CONTENT C: BUDGET INDICATORS (RE-USE METERS) -->
+    <div id="analytics-panel-budgets" style="display: none;">
+        <div class="budget-list" id="analytics-budget-meters-list">
+            <!-- Loaded budget indicators injected via JS -->
+        </div>
+    </div>
+</div>

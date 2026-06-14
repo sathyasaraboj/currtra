@@ -1,0 +1,398 @@
+        /* --- SETTINGS SCREEN & PAYMENT INSTRUMENTS --- */
+        .settings-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .settings-card {
+            background-color: var(--surface-dark);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: var(--glow);
+        }
+
+        .settings-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+        }
+
+        .settings-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .settings-row:first-child {
+            padding-top: 0;
+        }
+
+        .settings-row .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .settings-row .left span.icon {
+            color: var(--primary);
+            font-size: 22px;
+        }
+
+        .settings-row .left span.title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+
+        .settings-row .right-arrow {
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+
+        /* --- UNIFIED MANAGEMENT CARDS & PAYMENTS --- */
+        .account-card-premium {
+            background: linear-gradient(135deg, rgba(30, 33, 41, 0.95) 0%, rgba(18, 20, 25, 0.95) 100%);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 14px;
+            box-shadow: var(--glow), inset 0 1px 0 rgba(255,255,255,0.05);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .account-card-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 100% 0%, rgba(197, 168, 128, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .account-card-premium:hover {
+            border-color: var(--primary);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.8), 0 0 12px rgba(197, 168, 128, 0.1);
+        }
+
+        .account-card-premium.expanded {
+            border-color: var(--primary);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.9), 0 0 16px rgba(197, 168, 128, 0.15);
+        }
+
+        .account-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .account-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .account-card-icon {
+            width: 42px;
+            height: 42px;
+            background-color: rgba(197, 168, 128, 0.08);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            border: 1px solid var(--border);
+        }
+
+        .account-card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-white);
+            margin: 0;
+            letter-spacing: -0.2px;
+        }
+
+        .account-card-subtitle {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            display: block;
+        }
+
+        .account-card-balance {
+            text-align: right;
+        }
+
+        .account-card-balance .amt {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .account-card-balance .label {
+            font-size: 9px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* Expanded Details panel */
+        .account-card-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            margin-top: 0;
+            border-top: 1px dashed transparent;
+            padding-top: 0;
+        }
+
+        .account-card-premium.expanded .account-card-details {
+            max-height: 500px;
+            margin-top: 16px;
+            border-top: 1px dashed var(--border);
+            padding-top: 16px;
+        }
+
+        .instrument-management-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .instruments-checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .instrument-check-pill {
+            background-color: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 8px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .instrument-check-pill.linked {
+            background-color: var(--primary-glow);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .instrument-check-pill.linked span.indicator {
+            color: var(--primary);
+        }
+
+        .instrument-check-pill span.indicator {
+            font-size: 14px;
+            color: rgba(255,255,255,0.15);
+        }
+
+        .inline-action-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .inline-action-input {
+            flex: 1;
+            background-color: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 12px;
+            color: var(--text-white);
+            font-size: 11px;
+            outline: none;
+        }
+
+        .inline-action-input:focus {
+            border-color: var(--primary);
+        }
+
+        .inline-action-btn {
+            background-color: var(--primary);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 10px;
+            padding: 0 14px;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .inline-delete-account-btn {
+            background-color: rgba(244, 63, 94, 0.08);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            color: var(--expense);
+            border-radius: 10px;
+            padding: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .inline-delete-account-btn:hover {
+            background-color: rgba(244, 63, 94, 0.15);
+            border-color: var(--expense);
+        }
+
+        /* Debt Card Layout inside Overlay */
+        .debt-card-row {
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 14px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .debt-card-row:hover {
+            border-color: rgba(197, 168, 128, 0.25);
+        }
+
+        .debt-card-row .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .debt-card-row .person-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+
+        .debt-card-row .debt-badge {
+            font-size: 8px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .debt-card-row .debt-badge.lent {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--income);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .debt-card-row .debt-badge.borrowed {
+            background-color: rgba(244, 63, 94, 0.1);
+            color: var(--expense);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+        }
+
+        .debt-card-row .debt-badge.settled {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .debt-card-row .mid-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .debt-card-row .amt {
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .debt-card-row .wallet-tag {
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .debt-card-row .notes {
+            font-size: 11px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            border-top: 1px dashed rgba(255, 255, 255, 0.05);
+            padding-top: 6px;
+            margin-top: 2px;
+        }
+
+        .debt-card-row .action-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .debt-card-row .settle-btn {
+            background-color: var(--primary-glow);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .debt-card-row .settle-btn:hover {
+            background-color: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        .debt-card-row .delete-btn {
+            background-color: rgba(244, 63, 94, 0.1);
+            color: var(--expense);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            border-radius: 8px;
+            padding: 4px 8px;
+            font-size: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .debt-card-row .delete-btn:hover {
+            background-color: var(--expense);
+            color: var(--text-white);
+        }
+

@@ -1,0 +1,461 @@
+/* --- ANALYTICS SCREEN & VISUALIZATIONS --- */
+.analytics-metric-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.analytics-card-premium {
+    background-color: var(--surface-dark);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: var(--glow);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.analytics-card-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 100% 0%, rgba(197, 168, 128, 0.04) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.analytics-card-premium .label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.analytics-card-premium .value {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-white);
+    margin: 6px 0 4px 0;
+    letter-spacing: -0.5px;
+}
+
+.analytics-card-premium .change-indicator {
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.analytics-card-premium .change-indicator.positive {
+    color: var(--income);
+}
+
+.analytics-card-premium .change-indicator.negative {
+    color: var(--expense);
+}
+
+/* Donut Chart Visual Layout */
+.donut-chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 0 4px 0;
+}
+
+.donut-chart-mock {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: conic-gradient(
+        var(--expense) 0% 40%, 
+        #FFB300 40% 75%, 
+        var(--saving) 75% 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(255,255,255,0.05);
+    margin-bottom: 20px;
+    transition: background 0.5s ease;
+}
+
+.donut-chart-mock::after {
+    content: '';
+    position: absolute;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background-color: #08090C;
+    box-shadow: inset 0 4px 12px rgba(0,0,0,0.85);
+}
+
+.donut-chart-center-text {
+    position: absolute;
+    z-index: 10;
+    text-align: center;
+}
+
+.donut-chart-center-text .title {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+}
+
+.donut-chart-center-text .value {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-top: 2px;
+}
+
+.donut-legend {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.legend-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255,255,255,0.01);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 14px;
+    transition: border-color 0.2s ease;
+}
+
+.legend-item:hover {
+    border-color: rgba(197, 168, 128, 0.25);
+}
+
+.legend-item-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.legend-color-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.legend-item-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-white);
+}
+
+.legend-item-pct {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+/* Trends Chart Visual layout */
+.trends-chart-mock {
+    background-color: var(--surface-dark);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: var(--glow);
+    backdrop-filter: blur(10px);
+}
+
+.trends-chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.trends-chart-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-white);
+}
+
+.trends-chart-bars {
+    height: 120px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    border-bottom: 1px dashed rgba(255,255,255,0.08);
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+}
+
+.trends-bar-pair-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.trends-bar-pair {
+    display: flex;
+    gap: 4px;
+    align-items: flex-end;
+    height: 90px;
+}
+
+.trends-bar {
+    width: 10px;
+    border-radius: 3px 3px 0 0;
+    transition: height 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.trends-bar.income {
+    background-color: var(--income);
+    box-shadow: 0 4px 8px rgba(16, 185, 129, 0.15);
+}
+
+.trends-bar.expense {
+    background-color: var(--expense);
+    box-shadow: 0 4px 8px rgba(244, 63, 94, 0.15);
+}
+
+.trends-bar-label {
+    font-size: 9px;
+    color: var(--text-secondary);
+    text-align: center;
+    display: block;
+    margin-top: 6px;
+    font-weight: 600;
+}
+
+.trends-legend-indicator {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Time Filter Tabs */
+.time-filter-tabs {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 16px;
+}
+
+.time-filter-btn {
+    flex: 1;
+    text-align: center;
+    padding: 6px 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.time-filter-btn.active {
+    background-color: var(--primary);
+    color: var(--bg-dark);
+    box-shadow: 0 4px 12px rgba(197, 168, 128, 0.25);
+}
+
+/* Insight Carousel Cards */
+.insight-carousel-container {
+    margin-bottom: 16px;
+}
+
+.insight-card {
+    background: linear-gradient(135deg, rgba(22, 25, 31, 0.95) 0%, rgba(197, 168, 128, 0.03) 100%);
+    border: 1px solid rgba(197, 168, 128, 0.25);
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: var(--glow), 0 0 15px rgba(197, 168, 128, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.insight-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.03) 50%, transparent 55%);
+    transform: rotate(45deg);
+    pointer-events: none;
+    animation: shine-sweep 6s infinite linear;
+}
+
+@keyframes shine-sweep {
+    0% { transform: translate(-30%, -30%) rotate(45deg); }
+    100% { transform: translate(30%, 30%) rotate(45deg); }
+}
+
+.insight-card .header-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.insight-card .insight-icon {
+    font-size: 18px;
+    color: var(--primary);
+}
+
+.insight-card .insight-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--primary);
+}
+
+.insight-card .insight-body {
+    font-size: 12px;
+    color: var(--text-white);
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+.insight-card .insight-metric-tag {
+    display: inline-flex;
+    align-items: center;
+    background-color: rgba(197, 168, 128, 0.1);
+    border: 1px solid rgba(197, 168, 128, 0.2);
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Interactive Drilldown Panel */
+.interactive-drilldown-card {
+    background-color: var(--surface-variant);
+    border: 1px solid var(--primary);
+    border-radius: 20px;
+    padding: 16px;
+    margin-top: 16px;
+    box-shadow: var(--glow), 0 0 20px rgba(197, 168, 128, 0.1);
+    animation: fade-slide-in 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes fade-slide-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.drilldown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 8px;
+}
+
+.drilldown-header h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.close-drilldown-btn {
+    font-size: 18px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-drilldown-btn:hover {
+    color: var(--expense);
+}
+
+.drilldown-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 8px 12px;
+}
+
+.drilldown-stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.drilldown-stat-item .lbl {
+    font-size: 8px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.drilldown-stat-item .val {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-white);
+}
+
+.drilldown-tx-list {
+    max-height: 150px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-right: 4px;
+}
+
+.drilldown-tx-list::-webkit-scrollbar {
+    width: 3px;
+}
+
+.drilldown-tx-list::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 2px;
+}
+
+/* Clickable Week Chronology */
+.trends-bar-pair-container {
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.trends-bar-pair-container:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.trends-bar-pair-container.active {
+    background-color: rgba(197, 168, 128, 0.08);
+    outline: 1px dashed var(--primary);
+}

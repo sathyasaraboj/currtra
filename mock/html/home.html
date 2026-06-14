@@ -1,0 +1,74 @@
+﻿                <div class="screen-tab active" id="tab-home">
+                    <div class="balance-header">
+                        <label>Total Net Balance</label>
+                        <h2 id="home-net-balance">₹42,500.50</h2>
+                    </div>
+
+                    <div class="summary-grid">
+                        <div class="sum-card" style="color: var(--income);">
+                            <div class="label-row">
+                                <span class="dot" style="background-color: var(--income);"></span>
+                                Income
+                            </div>
+                            <h4 id="home-income-sum">₹54,000</h4>
+                        </div>
+                        <div class="sum-card" style="color: var(--saving);">
+                            <div class="label-row">
+                                <span class="dot" style="background-color: var(--saving);"></span>
+                                Savings
+                            </div>
+                            <h4 id="home-saving-sum">₹12,500</h4>
+                        </div>
+                        <div class="sum-card" style="color: var(--expense);">
+                            <div class="label-row">
+                                <span class="dot" style="background-color: var(--expense);"></span>
+                                Expenses
+                            </div>
+                            <h4 id="home-expense-sum">₹24,000</h4>
+                        </div>
+                    </div>
+
+                    <!-- Custom Visual Canvas Chart Mock -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Analytics Trends</h3>
+                            <span class="chart-filter">THIS MONTH</span>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="chart-bar-container">
+                                <div class="chart-bar" style="height: 40%;"></div>
+                                <span class="chart-bar-label">Wk 1</span>
+                            </div>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar" style="height: 75%;"></div>
+                                <span class="chart-bar-label">Wk 2</span>
+                            </div>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar" style="height: 90%;"></div>
+                                <span class="chart-bar-label">Wk 3</span>
+                            </div>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar" style="height: 55%;"></div>
+                                <span class="chart-bar-label">Wk 4</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Horizonal Debt Carousel -->
+                    <div class="section-title">
+                        <h3>Pending Debts</h3>
+                    </div>
+                    <div class="debt-carousel" id="home-debts-list">
+                        <!-- Seeded debt items injected via JS -->
+                    </div>
+
+                    <!-- Recent Activity Section -->
+                    <div class="section-title">
+                        <h3>Recent Transactions</h3>
+                    </div>
+                    <div class="tx-list" id="home-recent-tx">
+                        <!-- Seeded transactions injected via JS -->
+                    </div>
+                </div>
+
+                <!-- 2. HISTORY SCREEN TAB -->

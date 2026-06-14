@@ -1,0 +1,192 @@
+﻿        /* Management Panel Overlay Sub-view */
+        .sub-view-overlay {
+            position: absolute;
+            top: 38px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 114px);
+            background-color: #0B0C0E;
+            z-index: 100;
+            padding: 16px;
+            display: none;
+            overflow-y: auto;
+            animation: slideLeft 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .sub-view-overlay.show {
+            display: block;
+        }
+
+        @keyframes slideLeft {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        .sub-view-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .sub-view-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .back-icon-btn {
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .linked-mode-item {
+            background-color: var(--surface-dark);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .linked-mode-item span.title {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .linked-mode-item span.del-btn {
+            color: var(--expense);
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* Sub-view Overlay inner tabs */
+        .sub-view-tabs {
+            display: flex;
+            background-color: var(--surface-dark);
+            border-radius: 10px;
+            padding: 2px;
+            border: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+
+        .sub-view-tab-btn {
+            flex: 1;
+            text-align: center;
+            padding: 6px 2px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .sub-view-tab-btn.active {
+            background-color: var(--primary);
+            color: var(--bg-dark);
+            font-weight: 800;
+        }
+
+        /* Repeating Taxonomy UI Elements */
+        .tax-alert-info {
+            background-color: rgba(197, 168, 128, 0.06);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 12px;
+            font-size: 10px;
+            line-height: 1.4;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+
+        .tax-alert-info span.info-icon {
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .category-row-premium {
+            background-color: var(--surface-dark);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            box-shadow: var(--glow);
+            transition: border-color 0.2s ease;
+        }
+
+        .category-row-premium:hover {
+            border-color: rgba(197, 168, 128, 0.3);
+        }
+
+        .category-row-premium .left-side {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .category-row-premium .cat-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .category-row-premium .cat-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-white);
+        }
+
+        .category-row-premium .repeat-label {
+            font-size: 9px;
+            font-weight: 700;
+            background-color: rgba(6, 182, 212, 0.1);
+            color: var(--saving);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .category-row-premium .repeat-label.expense {
+            background-color: rgba(244, 63, 94, 0.1);
+            color: var(--expense);
+        }
+
+        .category-row-premium .repeat-label.income {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--income);
+        }
+
+        .category-row-premium .repeat-btn-delete {
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 18px;
+            transition: color 0.2s ease;
+        }
+
+        .category-row-premium .repeat-btn-delete:hover {
+            color: var(--expense);
+        }
+
+        .taxonomy-badge-pill {
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--primary);
+            background-color: rgba(197, 168, 128, 0.08);
+            border: 1px solid var(--border);
+            padding: 1px 4px;
+            border-radius: 4px;
+            margin-left: auto;
+        }

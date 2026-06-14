@@ -1,0 +1,222 @@
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 10% 20%, rgba(197, 168, 128, 0.04) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.03) 0%, transparent 40%);
+        }
+
+        .workspace {
+            display: flex;
+            max-width: 1100px;
+            width: 100%;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-panel {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .info-panel h1 {
+            font-size: 38px;
+            font-weight: 800;
+            margin: 0 0 10px 0;
+            color: var(--text-white);
+            letter-spacing: -1px;
+        }
+
+        .info-panel h1 span {
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(197, 168, 128, 0.3);
+        }
+
+        .info-panel p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0 0 24px 0;
+        }
+
+        .badge-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .badge-item {
+            background-color: var(--surface-dark);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(10px);
+        }
+
+        .badge-item span.icon {
+            font-size: 16px;
+            color: var(--primary);
+        }
+
+        .phone-frame {
+            width: 375px;
+            height: 760px;
+            background-color: #0B0C0E;
+            border-radius: 48px;
+            border: 12px solid #1C1E24;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.95),
+                        0 0 0 1px rgba(197, 168, 128, 0.08);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .phone-frame:hover {
+            transform: translateY(-8px);
+        }
+
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 24px;
+            background-color: #1C1E24;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            z-index: 1000;
+        }
+
+        .status-bar {
+            height: 38px;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-white);
+            z-index: 999;
+            background-color: transparent;
+        }
+
+        .status-bar .right {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .screen-content {
+            flex: 1;
+            overflow-y: auto;
+            position: relative;
+            padding-bottom: 90px;
+        }
+
+        .screen-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .screen-tab {
+            display: none;
+            padding: 16px;
+            animation: slideUp 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .screen-tab.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 76px;
+            background: rgba(11, 12, 14, 0.85);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 8px;
+            z-index: 999;
+        }
+
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 10px;
+            font-weight: 600;
+            transition: color 0.2s ease;
+            flex: 1;
+        }
+
+        .tab-item.active {
+            color: var(--primary);
+        }
+
+        .tab-item span.material-icons-round {
+            font-size: 24px;
+            margin-bottom: 2px;
+            transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .tab-item:active span.material-icons-round {
+            transform: scale(0.85);
+        }
+
+        .tab-item-add {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, #A3845B 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--bg-dark);
+            margin-bottom: 14px;
+            box-shadow: 0 10px 20px rgba(197, 168, 128, 0.2),
+                        inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .tab-item-add span.material-icons-round {
+            font-size: 28px;
+        }
+
+        .tab-item-add:hover {
+            transform: scale(1.05) translateY(-2px);
+        }
+
+        .tab-item-add:active {
+            transform: scale(0.9);
+        }
+

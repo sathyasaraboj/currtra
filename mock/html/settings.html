@@ -1,0 +1,285 @@
+                <div class="screen-tab" id="tab-settings">
+                    <h3 style="margin: 0 0 4px 0; font-size: 18px;">Settings</h3>
+                    <p style="color: var(--text-secondary); font-size: 11px; margin: 0 0 16px 0;">Configure your financial relationships and category taxonomy.</p>
+
+                    <div class="settings-menu">
+                        <div class="settings-card">
+                            <div class="settings-row" onclick="openOverlayView('accounts')">
+                                <div class="left">
+                                    <span class="icon material-icons-round">account_balance</span>
+                                    <span class="title">Manage Accounts & Payment Modes</span>
+                                </div>
+                                <span class="right-arrow material-icons-round">chevron_right</span>
+                            </div>
+                            <div class="settings-row" onclick="openOverlayView('custom-categories')">
+                                <div class="left">
+                                    <span class="icon material-icons-round">category</span>
+                                    <span class="title">Flow Categories (Income, Expense, Saving)</span>
+                                </div>
+                                <span class="right-arrow material-icons-round">chevron_right</span>
+                            </div>
+                            <div class="settings-row" onclick="openOverlayView('debts')">
+                                <div class="left">
+                                    <span class="icon material-icons-round">people</span>
+                                    <span class="title">Manage Debts & Loans</span>
+                                </div>
+                                <span class="right-arrow material-icons-round">chevron_right</span>
+                            </div>
+                            <div class="settings-row" onclick="openOverlayView('scheduled')">
+                                <div class="left">
+                                    <span class="icon material-icons-round">schedule</span>
+                                    <span class="title">Recurring & Scheduled Payments</span>
+                                </div>
+                                <span class="right-arrow material-icons-round">chevron_right</span>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="settings-row" onclick="triggerSAFBackup('export')">
+                                <div class="left">
+                                    <span class="icon material-icons-round">cloud_upload</span>
+                                    <span class="title">Export Database Backup</span>
+                                </div>
+                                <span class="right-arrow material-icons-round">chevron_right</span>
+                            </div>
+                            <div class="settings-row" onclick="triggerSAFBackup('import')">
+                                <div class="left">
+                                    <span class="icon material-icons-round">cloud_download</span>
+                                    <span class="title">Restore Database Backup</span>
+                                </div>
+                                <span class="right-arrow material-icons-round">chevron_right</span>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="settings-row">
+                                <div class="left">
+                                    <span class="icon material-icons-round">fingerprint</span>
+                                    <span class="title">Biometrics Security</span>
+                                </div>
+                                <span class="right-arrow material-icons-round">toggle_on</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-VIEW INTERACTIVE OVERLAYS -->
+                <!-- A. Manage Accounts & Instruments Overlay Sub-view -->
+                <div class="sub-view-overlay" id="overlay-accounts">
+                    <div class="sub-view-header">
+                        <span class="back-icon-btn material-icons-round" onclick="closeOverlayView('accounts')">arrow_back</span>
+                        <h3>Manage Accounts</h3>
+                    </div>
+                    
+                    <div class="tax-alert-info">
+                        <span class="material-icons-round info-icon">info</span>
+                        <span>
+                            <strong>Real-World Banking</strong>: Bank accounts/cards are your core holdings. Payment modes (instruments like GPay UPI, Swipe Card, Paytm) are spent via. Tap any card below to expand details and manage linked modes directly!
+                        </span>
+                    </div>
+
+                    <label class="form-label">Existing Accounts & Cards</label>
+                    <div id="settings-accounts-list" style="margin-bottom: 24px;">
+                        <!-- Custom Expanded Credit Card containers will be loaded dynamically via JS -->
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px;">
+                        <h4 style="margin: 0 0 12px 0; font-size: 14px; color: var(--primary);">Add Account / Card</h4>
+                        
+                        <label class="form-label">Account / Instrument Name</label>
+                        <input type="text" class="custom-text-input" placeholder="Account name (e.g. Axis Active Bank, SBI Credit Card)" id="settings-account-name-input" style="margin-bottom: 12px;">
+                        
+                        <label class="form-label">Initial Balance (INR)</label>
+                        <input type="number" class="custom-text-input" placeholder="Opening Balance (e.g. 25000)" id="settings-account-bal-input" style="margin-bottom: 12px;">
+
+                        <label class="form-label">Account Type</label>
+                        <div class="type-toggle" style="margin-bottom: 16px; height: 38px;">
+                            <div class="type-toggle-btn active" id="acct-type-bank-btn" onclick="setNewAccountType('BANK')">Bank Account</div>
+                            <div class="type-toggle-btn" id="acct-type-cc-btn" onclick="setNewAccountType('CREDIT_CARD')">Credit Card</div>
+                            <div class="type-toggle-btn" id="acct-type-cash-btn" onclick="setNewAccountType('CASH')">Cash Account</div>
+                        </div>
+                        
+                        <div id="new-account-modes-container" style="margin-bottom: 20px;">
+                            <label class="form-label">Linked Payment Modes</label>
+                            <div class="chip-grid" id="new-account-preset-instruments" style="margin-bottom: 12px;">
+                                <!-- Rendered dynamically via JS -->
+                            </div>
+                            
+                            <!-- Relational UPI Apps Sub-Checklist -->
+                            <div id="new-account-upi-apps-container" style="display: none; margin-bottom: 12px;"></div>
+                        </div>
+
+                        <button class="submit-btn" style="padding: 12px;" onclick="addCustomAccount()">Create Account</button>
+                    </div>
+                </div>
+
+                <!-- B. Manage Flow Categories Overlay Sub-view (Tabbed with repeating allowed) -->
+                <div class="sub-view-overlay" id="overlay-custom-categories">
+                    <div class="sub-view-header">
+                        <span class="back-icon-btn material-icons-round" onclick="closeOverlayView('custom-categories')">arrow_back</span>
+                        <h3>Flow Categories</h3>
+                    </div>
+
+                    <div class="tax-alert-info">
+                        <span class="material-icons-round info-icon">repeat</span>
+                        <span>
+                            <strong>Repeating Taxonomy</strong>: Currtra organizes categories into separate grids for <strong>Income</strong>, <strong>Expense</strong>, and <strong>Savings</strong> flows. Identical names (e.g., <em>Mutual Funds</em>) are allowed to repeat across lists to support both savings goals and expense allocations!
+                        </span>
+                    </div>
+
+                    <!-- Flow selector Tabs -->
+                    <div class="sub-view-tabs">
+                        <div class="sub-view-tab-btn active" id="settings-cat-tab-expense" onclick="switchSettingsCategoryTab('EXPENSE')">Expense</div>
+                        <div class="sub-view-tab-btn" id="settings-cat-tab-income" onclick="switchSettingsCategoryTab('INCOME')">Income</div>
+                        <div class="sub-view-tab-btn" id="settings-cat-tab-saving" onclick="switchSettingsCategoryTab('SAVING')">Saving</div>
+                    </div>
+
+                    <label class="form-label" id="settings-cat-label">Current Expense Categories</label>
+                    <div id="settings-categories-list" style="margin-bottom: 24px;">
+                        <!-- Seeded categories will be populated dynamically via JS -->
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px;">
+                        <h4 style="margin: 0 0 12px 0; font-size: 14px; color: var(--primary);" id="add-cat-flow-header">Create Custom Expense Category</h4>
+                        
+                        <label class="form-label">Category Name</label>
+                        <input type="text" class="custom-text-input" placeholder="Category name (e.g. Mutual Funds, Rent, Groceries)" id="settings-custom-cat-input" style="margin-bottom: 12px;">
+                        
+                        <div id="cat-repeat-warning-msg" style="font-size: 11px; color: var(--saving); font-weight: 600; margin-bottom: 12px; display: none;">
+                            <!-- Show warning if repeating category -->
+                        </div>
+
+                        <button class="submit-btn" style="padding: 12px;" onclick="addCustomCategory()">Create Category</button>
+                    </div>
+                </div>
+
+                <!-- C. Manage Debts & Loans Overlay Sub-view -->
+                <div class="sub-view-overlay" id="overlay-debts">
+                    <div class="sub-view-header">
+                        <span class="back-icon-btn material-icons-round" onclick="closeOverlayView('debts')">arrow_back</span>
+                        <h3>Manage Debts</h3>
+                    </div>
+                    
+                    <div class="tax-alert-info">
+                        <span class="material-icons-round info-icon">people</span>
+                        <span>
+                            <strong>Debts & Loans Ledger</strong>: Lending decreases your wallet balance as capital leaves. Borrowing increases your wallet balance as cash enters. Settle obligations when payments are finalized to automatically synchronize bank reserves.
+                        </span>
+                    </div>
+
+                    <!-- Summary Metrics Card -->
+                    <div class="analytics-metric-grid" style="margin-bottom: 16px;">
+                        <div class="analytics-card-premium" style="border-color: rgba(16, 185, 129, 0.25);">
+                            <span class="label" style="color:var(--income)">Total Lent</span>
+                            <div class="value" id="debts-lent-val" style="color:var(--income)">₹0</div>
+                            <span style="font-size: 8px; color:var(--text-secondary)">To be collected</span>
+                        </div>
+                        <div class="analytics-card-premium" style="border-color: rgba(244, 63, 94, 0.25);">
+                            <span class="label" style="color:var(--expense)">Total Borrowed</span>
+                            <div class="value" id="debts-borrowed-val" style="color:var(--expense)">₹0</div>
+                            <span style="font-size: 8px; color:var(--text-secondary)">To be repaid</span>
+                        </div>
+                    </div>
+
+                    <!-- Active vs Settled Debt Switcher Tabs -->
+                    <div class="sub-view-tabs" style="margin-bottom: 16px;">
+                        <div class="sub-view-tab-btn active" id="debt-tab-active" onclick="switchDebtFilterTab('ACTIVE')">Active</div>
+                        <div class="sub-view-tab-btn" id="debt-tab-settled" onclick="switchDebtFilterTab('SETTLED')">Settled</div>
+                    </div>
+
+                    <label class="form-label" id="debts-list-label">Active Debt Records</label>
+                    <div id="settings-debts-list" style="margin-bottom: 24px; display: flex; flex-direction: column; gap: 10px;">
+                        <!-- Loaded dynamically via JS -->
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px;">
+                        <h4 style="margin: 0 0 12px 0; font-size: 14px; color: var(--primary);">Add Debt / Loan Record</h4>
+
+                        <label class="form-label">Person Name</label>
+                        <input type="text" class="custom-text-input" placeholder="E.g., Sakthi, Sam, Boss" id="debt-person-input" style="margin-bottom: 12px;">
+
+                        <!-- Type selector pills -->
+                        <label class="form-label">Debt Type</label>
+                        <div class="type-toggle" style="margin-bottom: 12px; height: 38px;">
+                            <div class="type-toggle-btn active" id="debt-type-lent-btn" onclick="setDebtFormType('LENT')" style="font-size: 11px;">Lent (Owed to Me)</div>
+                            <div class="type-toggle-btn" id="debt-type-borrowed-btn" onclick="setDebtFormType('BORROWED')" style="font-size: 11px;">Borrowed (I Owe)</div>
+                        </div>
+
+                        <label class="form-label">Amount (INR)</label>
+                        <input type="number" class="custom-text-input" placeholder="Amount (e.g. 5000)" id="debt-amount-input" style="margin-bottom: 12px;">
+
+                        <label class="form-label">Linked Account</label>
+                        <div class="chip-grid" id="debt-wallet-chips" style="margin-bottom: 16px;">
+                            <!-- Seeded dynamically via JS -->
+                        </div>
+
+                        <label class="form-label">Description / Notes</label>
+                        <input type="text" class="custom-text-input" placeholder="E.g. Travel ticket, lunch bill, cash change" id="debt-notes-input" style="margin-bottom: 12px;">
+
+                        <label class="form-label">Expected Settlement Date (Optional)</label>
+                        <input type="date" class="custom-text-input" id="debt-due-date-input" style="margin-bottom: 20px; color-scheme: dark;">
+
+                        <button class="submit-btn" style="padding: 12px;" onclick="addCustomDebtRecord()">Save Debt Record</button>
+                    </div>
+                </div>
+
+                <!-- D. Scheduled & Recurring Payments Overlay Sub-view -->
+                <div class="sub-view-overlay" id="overlay-scheduled">
+                    <div class="sub-view-header">
+                        <span class="back-icon-btn material-icons-round" onclick="closeOverlayView('scheduled')">arrow_back</span>
+                        <h3>Scheduled Payments</h3>
+                    </div>
+                    
+                    <div class="tax-alert-info">
+                        <span class="material-icons-round info-icon">schedule</span>
+                        <span>
+                            <strong>Scheduled Payments & Reminders</strong>: Track upcoming subscriptions, utility bills, or repeating income. Tap <strong>"Settle & Log"</strong> on any reminder to record the transaction instantly and automatically roll the due date to the next period!
+                        </span>
+                    </div>
+
+                    <label class="form-label">Active Reminders & Scheduled Payments</label>
+                    <div id="settings-scheduled-list" style="margin-bottom: 24px; display: flex; flex-direction: column; gap: 10px;">
+                        <!-- Dynamically loaded scheduled payments -->
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px;">
+                        <h4 style="margin: 0 0 12px 0; font-size: 14px; color: var(--primary);">Schedule New Payment / Reminder</h4>
+
+                        <label class="form-label">Payment / Reminder Name</label>
+                        <input type="text" class="custom-text-input" placeholder="E.g. Electricity Bill, Rent, Netflix" id="sched-name-input" style="margin-bottom: 12px;">
+
+                        <label class="form-label">Flow Type</label>
+                        <div class="type-toggle" style="margin-bottom: 12px; height: 38px;">
+                            <div class="type-toggle-btn active" id="sched-type-expense-btn" onclick="setSchedFormType('EXPENSE')">Expense</div>
+                            <div class="type-toggle-btn" id="sched-type-income-btn" onclick="setSchedFormType('INCOME')">Income</div>
+                        </div>
+
+                        <label class="form-label">Amount (INR)</label>
+                        <input type="number" class="custom-text-input" placeholder="Amount (e.g. 2000)" id="sched-amount-input" style="margin-bottom: 12px;">
+
+                        <label class="form-label">Frequency</label>
+                        <div class="type-toggle" style="margin-bottom: 12px; height: 38px;">
+                            <div class="type-toggle-btn active" id="sched-freq-monthly-btn" onclick="setSchedFormFreq('MONTHLY')" style="font-size: 11px;">Monthly</div>
+                            <div class="type-toggle-btn" id="sched-freq-weekly-btn" onclick="setSchedFormFreq('WEEKLY')" style="font-size: 11px;">Weekly</div>
+                            <div class="type-toggle-btn" id="sched-freq-once-btn" onclick="setSchedFormFreq('ONCE')" style="font-size: 11px;">One-Time</div>
+                        </div>
+
+                        <label class="form-label">Next Due Date</label>
+                        <input type="date" class="custom-text-input" id="sched-due-date-input" style="margin-bottom: 12px; color-scheme: dark;">
+
+                        <label class="form-label">Category</label>
+                        <div class="chip-grid" id="sched-category-chips" style="margin-bottom: 12px;">
+                            <!-- Seeded dynamically via JS -->
+                        </div>
+
+                        <label class="form-label">Linked Account</label>
+                        <div class="chip-grid" id="sched-wallet-chips" style="margin-bottom: 16px;">
+                            <!-- Seeded dynamically via JS -->
+                        </div>
+
+                        <label class="form-label">Notes / Description</label>
+                        <input type="text" class="custom-text-input" placeholder="Optional notes" id="sched-notes-input" style="margin-bottom: 20px;">
+
+                        <button class="submit-btn" style="padding: 12px;" onclick="addCustomScheduledPayment()">Schedule Payment</button>
+                    </div>
+                </div>

@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currtra Gold - Carbon & Gold Premium Showcase (V2)</title>
+    <!-- Google Fonts & Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- Modular Sub-Stylesheets -->
+    <link rel="stylesheet" href="mock/css/theme.css">
+    <link rel="stylesheet" href="mock/css/layout.css">
+    <link rel="stylesheet" href="mock/css/home.css">
+    <link rel="stylesheet" href="mock/css/history.css">
+    <link rel="stylesheet" href="mock/css/add_transaction.css">
+    <link rel="stylesheet" href="mock/css/budgets.css">
+    <link rel="stylesheet" href="mock/css/analytics.css">
+    <link rel="stylesheet" href="mock/css/settings.css">
+    <link rel="stylesheet" href="mock/css/overlays.css">
+
+    <!-- Premium CSS Design Hacks -->
+    <style>
+        :root {
+            --bg-dark: #0A0B0D;
+            --surface-dark: #12141C;
+            --primary: #C5A880;
+            /* Desaturated Metal Gold Accent */
+            --border: rgba(197, 168, 128, 0.08);
+            --border-active: rgba(197, 168, 128, 0.25);
+            --card-glow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+
+        body {
+            background-color: var(--bg-dark) !important;
+            font-family: 'Outfit', sans-serif !important;
+        }
+
+        .phone-frame {
+            background: #000000 !important;
+            border-color: #1F2128 !important;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .screen-content {
+            background-color: var(--bg-dark) !important;
+        }
+
+        /* Bento Grid Visual Dashboard Layout */
+        .bento-container {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .bento-left-col {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bento-right-col {
+            display: grid;
+            grid-template-rows: auto auto;
+            gap: 10px;
+        }
+
+        .bento-right-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        /* Premium Card Contours & Radial Borders */
+        .chart-card,
+        .sum-card,
+        .account-card-premium,
+        .budget-row,
+        .debt-card-mock,
+        .insight-card {
+            background-color: var(--surface-dark) !important;
+            border: 1px solid var(--border) !important;
+            box-shadow: var(--card-glow) !important;
+            border-radius: 16px !important;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+        }
+
+        .chart-card:hover,
+        .sum-card:hover,
+        .budget-row:hover,
+        .debt-card-mock:hover {
+            border-color: var(--border-active) !important;
+            transform: translateY(-2px);
+        }
+
+        /* Aurora Mesh Gradient Surface Gloss */
+        .sum-card::after,
+        .account-card-premium::after,
+        .chart-card::after {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 140px;
+            height: 140px;
+            background: radial-gradient(circle, rgba(197, 168, 128, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Frosted Glass overlay Sheets */
+        .sub-view-overlay {
+            background-color: rgba(10, 11, 13, 0.82) !important;
+            backdrop-filter: blur(25px) !important;
+            -webkit-backdrop-filter: blur(25px) !important;
+            border-left: 1px solid var(--border) !important;
+        }
+
+        /* Hold to Confirm Button styles */
+        .hold-btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 24px 0 12px 0;
+        }
+
+        .hold-btn {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background-color: #151720;
+            border: 3px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .hold-btn:active {
+            transform: scale(0.94);
+        }
+
+        .hold-btn .progress-ring {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            pointer-events: none;
+            box-sizing: border-box;
+        }
+
+        .hold-btn .icon {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 4px;
+            text-shadow: 0 0 10px rgba(197, 168, 128, 0.3);
+        }
+
+        .hold-btn .label {
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* ====== ADVANCED UI/UX SLEEKNESS INJECTIONS ====== */
+
+        /* 1. Global SVG Noise Texture for Material Tactility */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* 2. Cursor Tracking Spotlight */
+        #cursor-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle closest-side, rgba(197, 168, 128, 0.08), transparent);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: screen;
+            transition: opacity 0.5s ease;
+            opacity: 0;
+        }
+
+        /* 3. 3D Card Hover Effects with Spring Physics */
+        .chart-card,
+        .sum-card,
+        .account-card-premium,
+        .insight-card {
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease !important;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .chart-card:hover,
+        .sum-card:hover {
+            transform: translateY(-4px) scale(1.02) !important;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 25px rgba(197, 168, 128, 0.15) !important;
+            border-color: rgba(197, 168, 128, 0.4) !important;
+            z-index: 10;
+        }
+
+        /* 4. Animated Shimmering Text for Premium Branding */
+        .info-panel h1 span {
+            background: linear-gradient(90deg, #C5A880, #FDF5D3, #C5A880, #C5A880);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: goldShimmer 4s linear infinite;
+        }
+
+        @keyframes goldShimmer {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        /* 5. Sub-pixel Inset Shadow for Tabs (Glass Pill effect) */
+        .time-filter-btn,
+        .sub-view-tab-btn,
+        .type-toggle-btn {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .time-filter-btn.active,
+        .sub-view-tab-btn.active,
+        .type-toggle-btn.active {
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+            transform: translateY(-1px);
+        }
+
+        /* 6. Tactile Liquid Swipe effect for Buttons */
+        .submit-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+        }
+
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+            opacity: 0;
+        }
+
+        .submit-btn:active::after {
+            width: 300px;
+            height: 300px;
+            opacity: 1;
+            transition: 0s;
+        }
+
+        /* 7. Animated Entrance for Bento Cards (Staggered) */
+        .bento-container>div>div {
+            animation: floatUp 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
+        }
+
+        .bento-container .bento-left-col>div {
+            animation-delay: 0.1s;
+        }
+
+        .bento-container .bento-right-col>div:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .bento-container .bento-right-col .bento-right-row>div:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+
+        .bento-container .bento-right-col .bento-right-row>div:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes floatUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+                filter: blur(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Premium UI/UX Sleekness Additions -->
+    <div id="cursor-glow"></div>
+    <div class="noise-overlay"></div>
+
+    <div class="workspace">
+        <div class="info-panel">
+            <h1>Currtra <span>Premium</span></h1>
+            <p>Experience the next generation of wealth management. A beautifully crafted financial companion designed to give you complete clarity over your money.</p>
+
+            <div class="badge-list">
+                <div class="badge-item"><span class="icon material-icons-round">account_balance</span> Smart Tracking</div>
+                <div class="badge-item"><span class="icon material-icons-round">insights</span> Deep Insights</div>
+                <div class="badge-item"><span class="icon material-icons-round">diamond</span> Premium Experience</div>
+            </div>
+
+            <p style="font-size: 14px;">✨ <strong>Why Choose Currtra Premium?</strong><br><br>
+                • <strong>Complete Clarity</strong>: Track all your accounts, income, and expenses in one elegant dashboard.<br>
+                • <strong>Intelligent Analytics</strong>: Understand your spending habits with intuitive charts and breakdowns.<br>
+                • <strong>Seamless Goals</strong>: Plan for the future by allocating funds towards your savings goals effortlessly.<br><br>
+                🔒 <strong>Privacy & Convenience First</strong><br><br>
+                • <strong>Auto Drafts</strong>: Automatically drafts transactions by listening to device notifications.<br>
+                • <strong>100% Offline Compatible</strong>: Fully functional without an internet connection.<br>
+                • <strong>No Privacy Leaks</strong>: Your data stays locally with you. No trackers, no shared data.<br>
+                • <strong>Daily Backups</strong>: Optional daily back-ups to your own Google Drive space. We do not track or have access to it.
+            </p>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-top: 16px; opacity: 0.8;">
+                <em>* Note: This is a design preview. The actual application may have some differences.</em>
+            </p>
+        </div>
+
+        <!-- Phone Mockup Frame -->
+        <div class="phone-frame">
+            <div class="notch"></div>
+
+            <div class="status-bar">
+                <div class="left" id="time-display">22:51</div>
+                <div class="right">
+                    <span class="material-icons-round" style="font-size: 12px;">signal_cellular_alt</span>
+                    <span class="material-icons-round" style="font-size: 12px;">wifi</span>
+                    <span class="material-icons-round" style="font-size: 12px;">battery_full</span>
+                </div>
+            </div>
+
+            <!-- Mobile Screen content Viewport -->
+            <div class="screen-content">
+
+                <!-- 1. HOME SCREEN TAB -->
+                <div class="screen-tab active" id="tab-home">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; padding: 4px 8px 0px 8px; margin-bottom: 6px;">
+                        <span
+                            style="font-size: 11px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.5px; text-transform: uppercase;">Overview</span>
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <div style="position: relative; cursor: pointer; display: flex;"
+                                onclick="openOverlayView('draft-inbox')">
+                                <span class="material-icons-round"
+                                    style="color: var(--primary); font-size: 20px; transition: color 0.2s;">notifications</span>
+                                <span id="draft-badge"
+                                    style="position: absolute; top: -2px; right: -2px; background: #F43F5E; width: 8px; height: 8px; border-radius: 50%; box-shadow: 0 0 4px #F43F5E;"></span>
+                            </div>
+                            <span class="material-icons-round filter-indicator-icon-class"
+                                style="cursor: pointer; color: var(--primary); font-size: 20px; transition: color 0.2s;"
+                                onclick="openAdvancedFilter()">tune</span>
+                        </div>
+                    </div>
+
+                    <!-- Bento Box Grid Layout -->
+                    <div class="bento-container">
+                        <div class="bento-left-col">
+                            <div class="chart-card"
+                                style="margin-bottom: 0; padding: 18px 14px; display: flex; flex-direction: column; justify-content: center; height: 100%;">
+                                <label
+                                    style="font-size: 9px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.5px; text-transform: uppercase;">Net
+                                    Holdings</label>
+                                <h2 id="home-net-balance"
+                                    style="font-size: 26px; font-weight: 800; color: var(--text-white); margin: 6px 0 8px 0; letter-spacing: -0.5px;">
+                                    ₹42,500.50</h2>
+                                <span
+                                    style="font-size: 8px; color: var(--saving); font-weight: 800; background-color: rgba(6,182,212,0.08); padding: 3px 8px; border-radius: 6px; width: fit-content; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(6,182,212,0.12);">
+                                    <span class="material-icons-round" style="font-size: 11px;">hourglass_empty</span>
+                                    Runway: 6.2 Mos
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="bento-right-col">
+                            <div class="sum-card" style="color: var(--income); padding: 12px; margin-bottom: 0;">
+                                <div class="label-row" style="margin-bottom: 4px;">
+                                    <span class="dot" style="background-color: var(--income);"></span>
+                                    Income
+                                </div>
+                                <h4 id="home-income-sum" style="font-size: 15px; font-weight: 800; margin: 0;">₹54,000
+                                </h4>
+                            </div>
+
+                            <div class="bento-right-row">
+                                <div class="sum-card" style="color: var(--saving); padding: 12px; margin-bottom: 0;">
+                                    <div class="label-row" style="margin-bottom: 4px;">
+                                        <span class="dot" style="background-color: var(--saving);"></span>
+                                        Savings
+                                    </div>
+                                    <h4 id="home-saving-sum" style="font-size: 12px; font-weight: 800; margin: 0;">
+                                        ₹12,500</h4>
+                                </div>
+                                <div class="sum-card" style="color: var(--expense); padding: 12px; margin-bottom: 0;">
+                                    <div class="label-row" style="margin-bottom: 4px;">
+                                        <span class="dot" style="background-color: var(--expense);"></span>
+                                        Expense
+                                    </div>
+                                    <h4 id="home-expense-sum" style="font-size: 12px; font-weight: 800; margin: 0;">
+                                        ₹24,000</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Visual Canvas Chart Mock -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Analytics Trends</h3>
+                            <span class="chart-filter">THIS MONTH</span>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="chart-bar-container">
+                                <div class="chart-bar" style="height: 40%;"></div>
+                                <span class="chart-bar-label">Wk 1</span>
+                            </div>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar" style="height: 75%;"></div>
+                                <span class="chart-bar-label">Wk 2</span>
+                            </div>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar" style="height: 90%;"></div>
+                                <span class="chart-bar-label">Wk 3</span>
+                            </div>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar" style="height: 55%;"></div>
+                                <span class="chart-bar-label">Wk 4</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Horizonal Debt Carousel -->
+                    <div class="section-title">
+                        <h3>Pending Debts</h3>
+                    </div>
+                    <div class="debt-carousel" id="home-debts-list">
+                        <!-- Seeded debt items injected via JS -->
+                    </div>
+
+                    <!-- Upcoming Reminders Carousel -->
+                    <div class="section-title">
+                        <h3>Upcoming Reminders</h3>
+                    </div>
+                    <div class="debt-carousel" id="home-scheduled-list">
+                        <!-- Loaded dynamically via JS -->
+                    </div>
+
+                    <!-- Recent Activity Section -->
+                    <div class="section-title">
+                        <h3>Recent Transactions</h3>
+                    </div>
+                    <div class="tx-list" id="home-recent-tx">
+                        <!-- Seeded transactions injected via JS -->
+                    </div>
+                </div>
+
+                <!-- 2. HISTORY SCREEN TAB -->
+                <div class="screen-tab" id="tab-transactions">
+                    <h3 style="margin: 0 0 12px 0; font-size: 18px;">Transaction History</h3>
+                    <div style="display: flex; gap: 8px; margin-bottom: 12px; align-items: center;">
+                        <input type="text" class="custom-text-input" placeholder="Search logs..." id="tx-search-bar"
+                            style="margin-bottom: 0; flex: 1;">
+                        <div class="chip-option filter-indicator-icon-class"
+                            style="padding: 0; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 12px; margin-bottom: 0; flex-shrink: 0;"
+                            onclick="openAdvancedFilter()">
+                            <span class="material-icons-round" style="font-size: 20px;">tune</span>
+                        </div>
+                    </div>
+
+                    <div class="tx-list" id="history-tx-list">
+                        <!-- Loaded history items injected via JS -->
+                    </div>
+                </div>
+
+                <!-- 3. ADD TRANSACTION SCREEN TAB -->
+                <div class="screen-tab" id="tab-add">
+                    <h3 style="margin: 0 0 16px 0; font-size: 18px;">Record Transaction</h3>
+
+                    <!-- Draft Source Banner -->
+                    <div id="draft-source-banner"
+                        style="display: none; background: rgba(197, 168, 128, 0.15); padding: 8px 12px; border-radius: 8px; margin-bottom: 16px; cursor: pointer; align-items: center;"
+                        onclick="showDraftRawMessage()">
+                        <span class="material-icons-round" style="color: var(--primary); font-size: 16px;">info</span>
+                        <span id="draft-source-text"
+                            style="color: var(--primary); font-size: 12px; font-weight: 500; margin-left: 8px;">Drafted
+                            from Messages</span>
+                    </div>
+
+                    <!-- Type Toggle -->
+                    <div class="type-toggle">
+                        <div class="type-toggle-btn active" onclick="setFormType('EXPENSE')">Expense</div>
+                        <div class="type-toggle-btn" onclick="setFormType('INCOME')">Income</div>
+                        <div class="type-toggle-btn" onclick="setFormType('SAVING')">Saving</div>
+                        <div class="type-toggle-btn" onclick="setFormType('TRANSFER')">Transfer</div>
+                    </div>
+
+                    <!-- Amount Box -->
+                    <div class="input-amount-box">
+                        <span class="prefix">₹</span>
+                        <input type="number" id="form-amount" placeholder="0" min="1">
+                    </div>
+
+                    <!-- Bank Account Chips -->
+                    <label class="form-label">Debit Source Account</label>
+                    <div class="chip-grid" id="source-wallet-chips">
+                        <!-- Seeded dynamically via JS -->
+                    </div>
+
+                    <!-- Target Account Section (Transfer) -->
+                    <div id="transfer-target-section" style="display: none;">
+                        <label class="form-label">Credit Target Account</label>
+                        <div class="chip-grid" id="target-wallet-chips">
+                            <!-- Seeded dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Relational Payment Dropdowns -->
+                    <label class="form-label">Spent Via (Payment Mode)</label>
+                    <div style="position: relative; width: 100%; margin-bottom: 20px;">
+                        <div class="custom-dropdown" onclick="toggleDropdown()">
+                            <span id="selected-payment-mode">UPI</span>
+                            <span class="material-icons-round" style="font-size: 18px;">expand_more</span>
+                        </div>
+                        <div class="dropdown-menu-list" id="payment-mode-dropdown-list">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Categories select chips -->
+                    <div id="category-selection-section">
+                        <label class="form-label">Category</label>
+                        <div class="chip-grid" id="form-category-chips">
+                            <!-- Seeded via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Note input -->
+                    <label class="form-label">Description / Notes</label>
+                    <input type="text" class="custom-text-input" id="form-note"
+                        placeholder="E.g., Dinner bill, salary, transfer note..." style="margin-bottom: 20px;">
+
+                    <!-- Tag selector -->
+                    <label class="form-label">Transaction #Tag</label>
+                    <input type="text" class="custom-text-input" id="form-tag"
+                        placeholder="E.g., #trip, #office, #gifts" style="margin-bottom: 12px;">
+                    <div class="chip-grid" id="form-preset-tags" style="margin-bottom: 20px;">
+                        <!-- Preset tags loaded dynamically via JS -->
+                    </div>
+
+                    <button class="submit-btn" onclick="executeFormSubmit()">Save Transaction</button>
+                </div>
+
+                <!-- 4. ANALYTICS & INSIGHTS SCREEN TAB -->
+                <div class="screen-tab" id="tab-analytics">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <div>
+                            <h3 style="margin: 0; font-size: 18px;">Insights & Analytics</h3>
+                            <p style="color: var(--text-secondary); font-size: 11px; margin: 4px 0 0 0;">Financial
+                                trends, savings rate, and category breakdowns.</p>
+                        </div>
+                        <span class="material-icons-round filter-indicator-icon-class"
+                            style="cursor: pointer; color: var(--primary); font-size: 20px; transition: color 0.2s; margin-top: 2px;"
+                            onclick="openAdvancedFilter()">tune</span>
+                    </div>
+
+                    <!-- Dynamic Timeline Switcher Pills -->
+                    <div class="time-filter-tabs">
+                        <div class="time-filter-btn" id="time-filter-week" onclick="setAnalyticsTimeRange('WEEK')">This
+                            Week</div>
+                        <div class="time-filter-btn active" id="time-filter-month"
+                            onclick="setAnalyticsTimeRange('MONTH')">This Month</div>
+                        <div class="time-filter-btn" id="time-filter-all" onclick="setAnalyticsTimeRange('ALL')">All
+                            Time</div>
+                    </div>
+
+                    <!-- Sub-tabs within Analytics -->
+                    <div class="sub-view-tabs" style="margin-bottom: 20px;">
+                        <div class="sub-view-tab-btn active" id="analytics-sub-tab-overview"
+                            onclick="switchAnalyticsSubTab('OVERVIEW')">Overview</div>
+                        <div class="sub-view-tab-btn" id="analytics-sub-tab-trends"
+                            onclick="switchAnalyticsSubTab('TRENDS')">Trends</div>
+                        <div class="sub-view-tab-btn" id="analytics-sub-tab-budgets"
+                            onclick="switchAnalyticsSubTab('BUDGETS')">Budgets</div>
+                        <div class="sub-view-tab-btn" id="analytics-sub-tab-goals"
+                            onclick="switchAnalyticsSubTab('GOALS')">Goals</div>
+                    </div>
+
+                    <!-- SUB-TAB CONTENT A: OVERVIEW METRICS -->
+                    <div id="analytics-panel-overview">
+                        <div class="analytics-metric-grid">
+                            <div class="analytics-card-premium">
+                                <span class="label">Health Score</span>
+                                <div class="value" id="analytics-health-val">85/100</div>
+                                <span class="change-indicator positive" id="analytics-health-status">
+                                    <span class="material-icons-round"
+                                        style="font-size:10px; vertical-align:middle; margin-right:2px;">trending_up</span>
+                                    Excellent Health
+                                </span>
+                            </div>
+                            <div class="analytics-card-premium">
+                                <span class="label">Savings Rate</span>
+                                <div class="value" id="analytics-savings-rate-val">23.1%</div>
+                                <span class="change-indicator positive" id="analytics-savings-status">
+                                    <span class="material-icons-round"
+                                        style="font-size:10px; vertical-align:middle; margin-right:2px;">check_circle</span>
+                                    Ideal Rate (&gt;20%)
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Monthly Surplus Card -->
+                        <div class="analytics-card-premium"
+                            style="margin-bottom: 16px; background: linear-gradient(135deg, rgba(22, 25, 31, 0.75) 0%, rgba(16, 185, 129, 0.05) 100%); border-color: rgba(16, 185, 129, 0.25);">
+                            <span class="label" style="color:var(--income);" id="analytics-surplus-label">Monthly Cash
+                                Flow Surplus</span>
+                            <div class="value" id="analytics-surplus-val" style="font-size:24px; color:var(--income);">
+                                ₹17,500.50</div>
+                            <span style="font-size:10px; color:var(--text-secondary); display:block; margin-top:4px;"
+                                id="analytics-surplus-desc">Your income exceeds all spending allocations. Good
+                                job!</span>
+                        </div>
+
+                        <!-- Automated Runways & Interactive Insight Card -->
+                        <div class="insight-carousel-container" id="analytics-insight-container">
+                            <!-- Programmatic insight cards injected here -->
+                        </div>
+
+                        <div class="analytics-metric-grid">
+                            <div class="analytics-card-premium">
+                                <span class="label">Daily Avg Spent</span>
+                                <div class="value" id="analytics-daily-avg-val">₹800</div>
+                                <span style="font-size:9px; color:var(--text-secondary);"
+                                    id="analytics-daily-avg-period">30 Days Average</span>
+                            </div>
+                            <div class="analytics-card-premium">
+                                <span class="label">Disposable Cash</span>
+                                <div class="value" id="analytics-disposable-val">₹4,000</div>
+                                <span style="font-size:9px; color:var(--text-secondary);">Cash Reserve Wallet</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUB-TAB CONTENT B: TRENDS & CONIC DONUT -->
+                    <div id="analytics-panel-trends" style="display: none;">
+                        <div class="trends-chart-mock">
+                            <div class="trends-chart-header">
+                                <span class="trends-chart-title">Expense Distribution</span>
+                                <span style="font-size:10px; color:var(--text-secondary);"
+                                    id="analytics-total-exp-label">Total: ₹11,500</span>
+                            </div>
+
+                            <div class="donut-chart-container">
+                                <div class="donut-chart-mock" id="analytics-donut-graphic" style="cursor: pointer;">
+                                    <div class="donut-chart-center-text">
+                                        <span class="title">Expenses</span>
+                                        <div class="value" id="analytics-donut-center-val">42% Spent</div>
+                                    </div>
+                                </div>
+
+                                <div class="donut-legend" id="analytics-donut-legend">
+                                    <!-- Legend list rendered dynamically via JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cash Flow Bar chart -->
+                        <div class="trends-chart-mock">
+                            <div class="trends-chart-header">
+                                <span class="trends-chart-title">Cash Flow Chronology</span>
+                                <span style="font-size: 10px; color:var(--text-secondary);"
+                                    id="analytics-chronology-title">4 Week Analytics</span>
+                            </div>
+
+                            <div class="trends-chart-bars" id="analytics-bars-container">
+                                <div class="trends-bar-pair-container" id="trends-bar-wk1"
+                                    onclick="selectChronologyWeek(1)">
+                                    <div class="trends-bar-pair">
+                                        <div class="trends-bar income" id="trends-bar-inc1" style="height: 60px;"></div>
+                                        <div class="trends-bar expense" id="trends-bar-exp1" style="height: 35px;">
+                                        </div>
+                                    </div>
+                                    <span class="trends-bar-label" id="trends-label-wk1">Wk 1</span>
+                                </div>
+                                <div class="trends-bar-pair-container" id="trends-bar-wk2"
+                                    onclick="selectChronologyWeek(2)">
+                                    <div class="trends-bar-pair">
+                                        <div class="trends-bar income" id="trends-bar-inc2" style="height: 80px;"></div>
+                                        <div class="trends-bar expense" id="trends-bar-exp2" style="height: 45px;">
+                                        </div>
+                                    </div>
+                                    <span class="trends-bar-label" id="trends-label-wk2">Wk 2</span>
+                                </div>
+                                <div class="trends-bar-pair-container" id="trends-bar-wk3"
+                                    onclick="selectChronologyWeek(3)">
+                                    <div class="trends-bar-pair">
+                                        <div class="trends-bar income" id="trends-bar-inc3" style="height: 70px;"></div>
+                                        <div class="trends-bar expense" id="trends-bar-exp3" style="height: 50px;">
+                                        </div>
+                                    </div>
+                                    <span class="trends-bar-label" id="trends-label-wk3">Wk 3</span>
+                                </div>
+                                <div class="trends-bar-pair-container" id="trends-bar-wk4"
+                                    onclick="selectChronologyWeek(4)">
+                                    <div class="trends-bar-pair">
+                                        <div class="trends-bar income" id="trends-bar-inc4" style="height: 95px;"></div>
+                                        <div class="trends-bar expense" id="trends-bar-exp4" style="height: 60px;">
+                                        </div>
+                                    </div>
+                                    <span class="trends-bar-label" id="trends-label-wk4">Wk 4</span>
+                                </div>
+                            </div>
+
+                            <div class="trends-legend-indicator">
+                                <div style="display:flex; align-items:center; gap:4px;"><span
+                                        style="width:8px; height:8px; background-color:var(--income); border-radius:50%;"></span>
+                                    Income</div>
+                                <div style="display:flex; align-items:center; gap:4px;"><span
+                                        style="width:8px; height:8px; background-color:var(--expense); border-radius:50%;"></span>
+                                    Expenses</div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Drilldown Summary -->
+                        <div class="interactive-drilldown-card" id="analytics-drilldown-panel" style="display: none;">
+                            <div class="drilldown-header">
+                                <h4 id="drilldown-title">Food & Dining Breakdown</h4>
+                                <span class="close-drilldown-btn material-icons-round"
+                                    onclick="closeDrilldownPanel()">close</span>
+                            </div>
+                            <div id="drilldown-stats-row" class="drilldown-stats">
+                                <div class="drilldown-stat-item">
+                                    <span class="lbl">Total Flowed</span>
+                                    <span class="val" id="drilldown-total-flow">₹4,000</span>
+                                </div>
+                                <div class="drilldown-stat-item">
+                                    <span class="lbl">Tx Count</span>
+                                    <span class="val" id="drilldown-tx-count">1</span>
+                                </div>
+                                <div class="drilldown-stat-item">
+                                    <span class="lbl">Average Size</span>
+                                    <span class="val" id="drilldown-avg-size">₹4,000</span>
+                                </div>
+                            </div>
+                            <div class="drilldown-tx-list" id="drilldown-transactions-list">
+                                <!-- Loaded transactions dynamically via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUB-TAB CONTENT C: BUDGET INDICATORS -->
+                    <div id="analytics-panel-budgets" style="display: none;">
+                        <div class="budget-list" id="analytics-budget-meters-list">
+                            <!-- Loaded budget indicators injected via JS -->
+                        </div>
+                    </div>
+
+                    <!-- SUB-TAB CONTENT D: SAVINGS GOALS -->
+                    <div id="analytics-panel-goals" style="display: none;">
+                        <div class="budget-list" id="analytics-goals-list"
+                            style="display: flex; flex-direction: column; gap: 14px;">
+                            <!-- Loaded dynamically via JS -->
+                        </div>
+
+                        <div style="border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px;">
+                            <h4 style="margin: 0 0 12px 0; font-size: 14px; color: var(--primary);">Create Savings Goal
+                            </h4>
+
+                            <label class="form-label">Goal Name</label>
+                            <input type="text" class="custom-text-input"
+                                placeholder="E.g. Travel Fund, Emergency Reserve" id="goal-name-input"
+                                style="margin-bottom: 12px;">
+
+                            <label class="form-label">Target Amount (INR)</label>
+                            <input type="number" class="custom-text-input" placeholder="Target amount (e.g. 50000)"
+                                id="goal-target-input" style="margin-bottom: 12px;">
+
+                            <label class="form-label">Target Date</label>
+                            <input type="date" class="custom-text-input" id="goal-date-input"
+                                style="margin-bottom: 20px; color-scheme: dark;">
+
+                            <button class="submit-btn" style="padding: 12px;" onclick="addCustomSavingsGoal()">Create
+                                Goal</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. SETTINGS SCREEN TAB -->
+                <div class="screen-tab" id="tab-settings">
+                    <h3 style="margin: 0 0 4px 0; font-size: 18px;">Settings</h3>
+                    <p style="color: var(--text-secondary); font-size: 11px; margin: 0 0 16px 0;">Configure your
+                        financial relationships and category taxonomy.</p>
+
+                    <div class="settings-menu">
+                        <div class="settings-card">
+                            <div class="settings-row" onclick="openOverlayView('accounts')">
+                                <div class="left">
+                                    <span class="icon material-icons-round">account_balance</span>
+                                    <span class="title">Manage Accounts & Payment Modes</span>
+                                </div>
+                                <span class="right-arrow material-icons-round">chevron_right</span>
+                            </div>
+                            <div class="settings-row" onclick="openOverlayView('custom-categories')">
+                                <div class="left">
+                                    <span class="icon material-icons-round">category</span>
+                                    <span class="title">Flow Categories (Income, Expense, Saving)</span>
+                                </div>
+                                <span class="right-arrow material-icons-round">chevron_right</span>
+                            </div>
+                            <div class="settings-row" onclick="openOverlayView('debts')">
+                                <div class="left">
+                                    <span class="icon material-icons-round">people</span>
+                                    <span class="title">Manage Debts & Loans</span>
+                                </div>
+                                <span class="right-arrow material-icons-round">chevron_right</span>
+                            </div>
+                            <div class="settings-row" onclick="openOverlayView('scheduled')">
+                                <div class="left">
+                                    <span class="icon material-icons-round">schedule</span>
+                                    <span class="title">Recurring & Scheduled Payments</span>
+                                </div>
+                                <span class="right-arrow material-icons-round">chevron_right</span>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="settings-row" onclick="triggerSAFBackup('export')">
+                                <div class="left">
+                                    <span class="icon material-icons-round">cloud_upload</span>
+                                    <span class="title">Export Database Backup</span>
+                                </div>
+                                <span class="right-arrow material-icons-round">chevron_right</span>
+                            </div>
+                            <div class="settings-row" onclick="triggerSAFBackup('import')">
+                                <div class="left">
+                                    <span class="icon material-icons-round">cloud_download</span>
+                                    <span class="title">Restore Database Backup</span>
+                                </div>
+                                <span class="right-arrow material-icons-round">chevron_right</span>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="settings-row">
+                                <div class="left">
+                                    <span class="icon material-icons-round">fingerprint</span>
+                                    <span class="title">Biometrics Security</span>
+                                </div>
+                                <span class="right-arrow material-icons-round">toggle_on</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-VIEW INTERACTIVE OVERLAYS -->
+                <!-- A. Manage Accounts -->
+                <div class="sub-view-overlay" id="overlay-accounts">
+                    <div class="sub-view-header">
+                        <span class="back-icon-btn material-icons-round"
+                            onclick="closeOverlayView('accounts')">arrow_back</span>
+                        <h3>Manage Accounts</h3>
+                    </div>
+
+                    <div class="tax-alert-info">
+                        <span class="material-icons-round info-icon">info</span>
+                        <span>
+                            <strong>Real-World Banking</strong>: Bank accounts/cards are your core holdings. Payment
+                            modes (instruments like GPay UPI, Swipe Card, Paytm) are spent via. Tap any card below to
+                            expand details and manage linked modes directly!
+                        </span>
+                    </div>
+
+                    <label class="form-label">Existing Accounts & Cards</label>
+                    <div id="settings-accounts-list" style="margin-bottom: 24px;">
+                        <!-- Custom Expanded Credit Card containers will be loaded dynamically via JS -->
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px;">
+                        <h4 style="margin: 0 0 12px 0; font-size: 14px; color: var(--primary);">Add Account / Card</h4>
+
+                        <label class="form-label">Account / Instrument Name</label>
+                        <input type="text" class="custom-text-input"
+                            placeholder="Account name (e.g. Axis Active Bank, SBI Credit Card)"
+                            id="settings-account-name-input" style="margin-bottom: 12px;">
+
+                        <label class="form-label">Initial Balance (INR)</label>
+                        <input type="number" class="custom-text-input" placeholder="Opening Balance (e.g. 25000)"
+                            id="settings-account-bal-input" style="margin-bottom: 12px;">
+
+                        <label class="form-label">Account Type</label>
+                        <div class="type-toggle" style="margin-bottom: 16px; height: 38px;">
+                            <div class="type-toggle-btn active" id="acct-type-bank-btn"
+                                onclick="setNewAccountType('BANK')">Bank Account</div>
+                            <div class="type-toggle-btn" id="acct-type-cc-btn"
+                                onclick="setNewAccountType('CREDIT_CARD')">Credit Card</div>
+                            <div class="type-toggle-btn" id="acct-type-cash-btn" onclick="setNewAccountType('CASH')">
+                                Cash Account</div>
+                        </div>
+
+                        <div id="new-account-modes-container" style="margin-bottom: 20px;">
+                            <label class="form-label">Linked Payment Modes</label>
+                            <div class="chip-grid" id="new-account-preset-instruments" style="margin-bottom: 12px;">
+                                <!-- Rendered dynamically via JS -->
+                            </div>
+
+                            <!-- Relational UPI Apps Sub-Checklist -->
+                            <div id="new-account-upi-apps-container" style="display: none; margin-bottom: 12px;"></div>
+                        </div>
+
+                        <button class="submit-btn" style="padding: 12px;" onclick="addCustomAccount()">Create
+                            Account</button>
+                    </div>
+                </div>
+
+                <!-- B. Flow Categories -->
+                <div class="sub-view-overlay" id="overlay-custom-categories">
+                    <div class="sub-view-header">
+                        <span class="back-icon-btn material-icons-round"
+                            onclick="closeOverlayView('custom-categories')">arrow_back</span>
+                        <h3>Flow Categories</h3>
+                    </div>
+
+                    <div class="tax-alert-info">
+                        <span class="material-icons-round info-icon">repeat</span>
+                        <span>
+                            <strong>Repeating Taxonomy</strong>: Currtra organizes categories into separate grids for
+                            <strong>Income</strong>, <strong>Expense</strong>, and <strong>Savings</strong> flows.
+                            Identical names (e.g., <em>Mutual Funds</em>) are allowed to repeat across lists to support
+                            both savings goals and expense allocations!
+                        </span>
+                    </div>
+
+                    <!-- Flow selector Tabs -->
+                    <div class="sub-view-tabs">
+                        <div class="sub-view-tab-btn active" id="settings-cat-tab-expense"
+                            onclick="switchSettingsCategoryTab('EXPENSE')">Expense</div>
+                        <div class="sub-view-tab-btn" id="settings-cat-tab-income"
+                            onclick="switchSettingsCategoryTab('INCOME')">Income</div>
+                        <div class="sub-view-tab-btn" id="settings-cat-tab-saving"
+                            onclick="switchSettingsCategoryTab('SAVING')">Saving</div>
+                    </div>
+
+                    <label class="form-label" id="settings-cat-label">Current Expense Categories</label>
+                    <div id="settings-categories-list" style="margin-bottom: 24px;">
+                        <!-- Seeded categories will be populated dynamically via JS -->
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px;">
+                        <h4 style="margin: 0 0 12px 0; font-size: 14px; color: var(--primary);"
+                            id="add-cat-flow-header">Create Custom Expense Category</h4>
+
+                        <label class="form-label">Category Name</label>
+                        <input type="text" class="custom-text-input" placeholder="Category name (e.g. Groceries, Rent)"
+                            id="settings-custom-cat-input" style="margin-bottom: 12px;">
+
+                        <button class="submit-btn" style="padding: 12px;" onclick="addCustomCategory()">Create
+                            Category</button>
+                    </div>
+                </div>
+
+                <!-- C. Manage Debts -->
+                <div class="sub-view-overlay" id="overlay-debts">
+                    <div class="sub-view-header">
+                        <span class="back-icon-btn material-icons-round"
+                            onclick="closeOverlayView('debts')">arrow_back</span>
+                        <h3>Manage Debts</h3>
+                    </div>
+
+                    <div class="tax-alert-info">
+                        <span class="material-icons-round info-icon">people</span>
+                        <span>
+                            <strong>Debts & Loans Ledger</strong>: Lending decreases your wallet balance as capital
+                            leaves. Borrowing increases your wallet balance as cash enters. Settle obligations when
+                            payments are finalized to automatically synchronize bank reserves.
+                        </span>
+                    </div>
+
+                    <div class="analytics-metric-grid" style="margin-bottom: 16px;">
+                        <div class="analytics-card-premium" style="border-color: rgba(16, 185, 129, 0.25);">
+                            <span class="label" style="color:var(--income)">Total Lent</span>
+                            <div class="value" id="debts-lent-val" style="color:var(--income)">₹0</div>
+                        </div>
+                        <div class="analytics-card-premium" style="border-color: rgba(244, 63, 94, 0.25);">
+                            <span class="label" style="color:var(--expense)">Total Borrowed</span>
+                            <div class="value" id="debts-borrowed-val" style="color:var(--expense)">₹0</div>
+                        </div>
+                    </div>
+
+                    <div class="sub-view-tabs" style="margin-bottom: 16px;">
+                        <div class="sub-view-tab-btn active" id="debt-tab-active"
+                            onclick="switchDebtFilterTab('ACTIVE')">Active</div>
+                        <div class="sub-view-tab-btn" id="debt-tab-settled" onclick="switchDebtFilterTab('SETTLED')">
+                            Settled</div>
+                    </div>
+
+                    <label class="form-label" id="debts-list-label">Active Debt Records</label>
+                    <div id="settings-debts-list"
+                        style="margin-bottom: 24px; display: flex; flex-direction: column; gap: 10px;">
+                        <!-- Loaded dynamically via JS -->
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px;">
+                        <h4 style="margin: 0 0 12px 0; font-size: 14px; color: var(--primary);">Add Debt / Loan Record
+                        </h4>
+
+                        <label class="form-label">Person Name</label>
+                        <input type="text" class="custom-text-input" placeholder="E.g., Sakthi, Sam"
+                            id="debt-person-input" style="margin-bottom: 12px;">
+
+                        <label class="form-label">Debt Type</label>
+                        <div class="type-toggle" style="margin-bottom: 12px; height: 38px;">
+                            <div class="type-toggle-btn active" id="debt-type-lent-btn"
+                                onclick="setDebtFormType('LENT')">Lent (Owed to Me)</div>
+                            <div class="type-toggle-btn" id="debt-type-borrowed-btn"
+                                onclick="setDebtFormType('BORROWED')">Borrowed (I Owe)</div>
+                        </div>
+
+                        <label class="form-label">Amount (INR)</label>
+                        <input type="number" class="custom-text-input" placeholder="Amount" id="debt-amount-input"
+                            style="margin-bottom: 12px;">
+
+                        <label class="form-label">Linked Account</label>
+                        <div class="chip-grid" id="debt-wallet-chips" style="margin-bottom: 16px;">
+                            <!-- Seeded dynamically via JS -->
+                        </div>
+
+                        <label class="form-label">Description / Notes</label>
+                        <input type="text" class="custom-text-input" placeholder="Notes..." id="debt-notes-input"
+                            style="margin-bottom: 12px;">
+
+                        <label class="form-label">Expected Settlement Date (Optional)</label>
+                        <input type="date" class="custom-text-input" id="debt-due-date-input"
+                            style="margin-bottom: 20px; color-scheme: dark;">
+
+                        <button class="submit-btn" style="padding: 12px;" onclick="addCustomDebt()">Create Debt
+                            Record</button>
+                    </div>
+                </div>
+
+                <!-- D. Scheduled & Recurring Payments -->
+                <div class="sub-view-overlay" id="overlay-scheduled">
+                    <div class="sub-view-header">
+                        <span class="back-icon-btn material-icons-round"
+                            onclick="closeOverlayView('scheduled')">arrow_back</span>
+                        <h3>Scheduled Payments</h3>
+                    </div>
+
+                    <div class="tax-alert-info">
+                        <span class="material-icons-round info-icon">schedule</span>
+                        <span>
+                            <strong>Scheduled Payments & Reminders</strong>: Track upcoming subscriptions, utility
+                            bills, or repeating income. Tap <strong>"Settle & Log"</strong> on any reminder to record
+                            the transaction instantly and automatically roll the due date to the next period!
+                        </span>
+                    </div>
+
+                    <label class="form-label">Active Reminders & Scheduled Payments</label>
+                    <div id="settings-scheduled-list"
+                        style="margin-bottom: 24px; display: flex; flex-direction: column; gap: 10px;">
+                        <!-- Dynamically loaded scheduled payments -->
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px;">
+                        <h4 style="margin: 0 0 12px 0; font-size: 14px; color: var(--primary);">Schedule New Payment /
+                            Reminder</h4>
+
+                        <label class="form-label">Payment / Reminder Name</label>
+                        <input type="text" class="custom-text-input" placeholder="E.g. Electricity Bill, Netflix"
+                            id="sched-name-input" style="margin-bottom: 12px;">
+
+                        <label class="form-label">Flow Type</label>
+                        <div class="type-toggle" style="margin-bottom: 12px; height: 38px;">
+                            <div class="type-toggle-btn active" id="sched-type-expense-btn"
+                                onclick="setSchedFormType('EXPENSE')">Expense</div>
+                            <div class="type-toggle-btn" id="sched-type-income-btn"
+                                onclick="setSchedFormType('INCOME')">Income</div>
+                        </div>
+
+                        <label class="form-label">Amount (INR)</label>
+                        <input type="number" class="custom-text-input" placeholder="Amount" id="sched-amount-input"
+                            style="margin-bottom: 12px;">
+
+                        <label class="form-label">Frequency</label>
+                        <div class="type-toggle" style="margin-bottom: 12px; height: 38px;">
+                            <div class="type-toggle-btn active" id="sched-freq-monthly-btn"
+                                onclick="setSchedFormFreq('MONTHLY')">Monthly</div>
+                            <div class="type-toggle-btn" id="sched-freq-weekly-btn"
+                                onclick="setSchedFormFreq('WEEKLY')">Weekly</div>
+                            <div class="type-toggle-btn" id="sched-freq-once-btn" onclick="setSchedFormFreq('ONCE')">
+                                One-Time</div>
+                        </div>
+
+                        <label class="form-label">Next Due Date</label>
+                        <input type="date" class="custom-text-input" id="sched-due-date-input"
+                            style="margin-bottom: 12px; color-scheme: dark;">
+
+                        <label class="form-label">Category</label>
+                        <div class="chip-grid" id="sched-category-chips" style="margin-bottom: 12px;">
+                            <!-- Seeded dynamically via JS -->
+                        </div>
+
+                        <label class="form-label">Linked Account</label>
+                        <div class="chip-grid" id="sched-wallet-chips" style="margin-bottom: 16px;">
+                            <!-- Seeded dynamically via JS -->
+                        </div>
+
+                        <label class="form-label">Notes / Description</label>
+                        <input type="text" class="custom-text-input" placeholder="Optional notes" id="sched-notes-input"
+                            style="margin-bottom: 20px;">
+
+                        <button class="submit-btn" style="padding: 12px;" onclick="addCustomScheduledPayment()">Schedule
+                            Payment</button>
+                    </div>
+                </div>
+
+                <!-- E. Advanced Filter Overlay Sub-view -->
+                <div class="sub-view-overlay" id="overlay-advanced-filter">
+                    <div class="sub-view-header">
+                        <span class="back-icon-btn material-icons-round"
+                            onclick="closeOverlayView('advanced-filter')">arrow_back</span>
+                        <h3>Advanced Filters</h3>
+                    </div>
+
+                    <div class="tax-alert-info">
+                        <span class="material-icons-round info-icon">filter_alt</span>
+                        <span>
+                            <strong>Advanced Filter Panel</strong>: Configure multi-conditional constraints to narrow
+                            down transaction views across the dashboard, transaction log history, and analytics tabs.
+                        </span>
+                    </div>
+
+                    <label class="form-label">Transaction Flow Type</label>
+                    <div class="chip-grid" id="filter-type-chips">
+                        <!-- Seeded dynamically via JS -->
+                    </div>
+
+                    <label class="form-label">Linked Account / Wallet</label>
+                    <div class="chip-grid" id="filter-wallet-chips">
+                        <!-- Seeded dynamically via JS -->
+                    </div>
+
+                    <label class="form-label">Category</label>
+                    <div class="chip-grid" id="filter-category-chips">
+                        <!-- Seeded dynamically via JS -->
+                    </div>
+
+                    <label class="form-label">Custom #Tag</label>
+                    <div class="chip-grid" id="filter-tag-chips">
+                        <!-- Seeded dynamically via JS -->
+                    </div>
+
+                    <label class="form-label">Amount Range (INR)</label>
+                    <div style="display: flex; gap: 10px; margin-bottom: 14px;">
+                        <input type="number" class="custom-text-input" id="filter-min-amount"
+                            placeholder="Min Amount (₹)" style="flex: 1; margin-bottom: 0;">
+                        <input type="number" class="custom-text-input" id="filter-max-amount"
+                            placeholder="Max Amount (₹)" style="flex: 1; margin-bottom: 0;">
+                    </div>
+
+                    <label class="form-label">Date Range</label>
+                    <div style="display: flex; gap: 10px; margin-bottom: 24px;">
+                        <input type="date" class="custom-text-input" id="filter-start-date"
+                            style="flex: 1; margin-bottom: 0; color-scheme: dark;">
+                        <input type="date" class="custom-text-input" id="filter-end-date"
+                            style="flex: 1; margin-bottom: 0; color-scheme: dark;">
+                    </div>
+
+                    <div style="display: flex; gap: 12px;">
+                        <button class="submit-btn"
+                            style="flex: 1; padding: 12px; background-color: var(--surface-dark); border: 1px solid var(--border); color: var(--text-white);"
+                            onclick="clearAllAdvancedFilters()">Clear All</button>
+                        <button class="submit-btn" style="flex: 1; padding: 12px;"
+                            onclick="applyAndCloseAdvancedFilters()">Apply Filters</button>
+                    </div>
+                </div>
+
+                <!-- F. Savings Goal Contribution / Hold Action Overlay -->
+                <div class="sub-view-overlay" id="overlay-goal-contribution">
+                    <div class="sub-view-header">
+                        <span class="back-icon-btn material-icons-round"
+                            onclick="closeOverlayView('goal-contribution')">arrow_back</span>
+                        <h3>Allocate Savings</h3>
+                    </div>
+
+                    <div class="tax-alert-info">
+                        <span class="material-icons-round info-icon">stars</span>
+                        <span>
+                            <strong>Hold-to-Confirm Allocation</strong>: Allocate capital from your primary bank account
+                            directly to the selected objective. Hold the gold dial below for 2 seconds to execute the
+                            transfer.
+                        </span>
+                    </div>
+
+                    <div class="chart-card" style="text-align: center; margin-bottom: 24px; padding: 20px;">
+                        <h4 id="allocation-goal-name"
+                            style="margin: 0; color: var(--text-white); font-size: 18px; font-weight: 700;">Emergency
+                            Fund</h4>
+                        <span id="allocation-goal-target"
+                            style="font-size: 11px; color: var(--text-secondary); margin-top: 4px; display: block;">Target:
+                            ₹50,000</span>
+                    </div>
+
+                    <label class="form-label">Contribution Amount (INR)</label>
+                    <input type="number" class="custom-text-input" id="allocation-amount-input"
+                        placeholder="₹ Enter allocation amount..." style="margin-bottom: 24px;">
+
+                    <div class="hold-btn-container">
+                        <div class="hold-btn" id="gold-hold-trigger">
+                            <div class="progress-ring" id="hold-progress-border"></div>
+                            <span class="material-icons-round icon">fingerprint</span>
+                            <span class="label" id="hold-label-text">Hold 2s</span>
+                        </div>
+                        <span style="font-size: 10px; color: var(--text-secondary); margin-top: 12px; font-weight: 500;"
+                            id="hold-status-desc">Press and hold the gold print to commit</span>
+                    </div>
+                </div>
+
+                <!-- G. Draft Inbox Overlay Sub-view -->
+                <div class="sub-view-overlay" id="overlay-draft-inbox">
+                    <div class="sub-view-header">
+                        <span class="back-icon-btn material-icons-round"
+                            onclick="closeOverlayView('draft-inbox')">arrow_back</span>
+                        <h3>Transaction Drafts</h3>
+                    </div>
+
+                    <div class="tax-alert-info">
+                        <span class="material-icons-round info-icon">inbox</span>
+                        <span>
+                            <strong>Draft Inbox</strong>: Pending transactions extracted from your SMS notifications.
+                            Tap to review and log.
+                        </span>
+                    </div>
+
+                    <label class="form-label" id="draft-list-label">Pending Drafts</label>
+                    <div id="draft-inbox-list"
+                        style="margin-bottom: 24px; display: flex; flex-direction: column; gap: 10px;">
+                        <!-- Loaded dynamically via JS -->
+                    </div>
+                </div>
+
+                <!-- Original Message Modal -->
+                <div id="raw-message-modal"
+                    style="display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 11, 13, 0.85); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; padding: 24px;">
+                    <div
+                        style="background: var(--surface-dark); border: 1px solid var(--border); border-radius: 16px; padding: 20px; width: 100%; box-shadow: var(--card-glow);">
+                        <h4 style="margin: 0 0 16px 0; color: var(--text-white); font-size: 16px;">Original Message</h4>
+                        <p id="raw-message-text"
+                            style="color: rgba(255, 255, 255, 0.8); font-size: 14px; margin: 0 0 24px 0; line-height: 1.5;">
+                        </p>
+                        <div style="display: flex; justify-content: flex-end;">
+                            <button
+                                style="background: transparent; border: none; color: var(--primary); font-size: 14px; font-weight: 600; cursor: pointer; padding: 8px;"
+                                onclick="closeDraftRawMessage()">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Tab Navigation Bar -->
+            <div class="tab-bar">
+                <div class="tab-item active" onclick="switchPhoneTab('home')">
+                    <span class="material-icons-round">home</span>
+                    Home
+                </div>
+                <div class="tab-item" onclick="switchPhoneTab('transactions')">
+                    <span class="material-icons-round">receipt_long</span>
+                    History
+                </div>
+                <div class="tab-item-add" onclick="switchPhoneTab('add')">
+                    <span class="material-icons-round">add</span>
+                </div>
+                <div class="tab-item" onclick="switchPhoneTab('analytics')">
+                    <span class="material-icons-round">pie_chart</span>
+                    Analytics
+                </div>
+                <div class="tab-item" onclick="switchPhoneTab('settings')">
+                    <span class="material-icons-round">settings</span>
+                    Settings
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modular Sub-Controllers & Database State -->
+    <script src="mock/js/state.js"></script>
+    <script src="mock/js/utils.js"></script>
+    <script src="mock/js/home.js"></script>
+    <script src="mock/js/history.js"></script>
+    <script src="mock/js/budgets.js"></script>
+    <script src="mock/js/analytics.js"></script>
+    <script src="mock/js/add_transaction.js"></script>
+    <script src="mock/js/settings.js"></script>
+    <script src="mock/js/saf.js"></script>
+
+    <!-- Custom Premium Visual Interactions Script -->
+    <script>
+        // Override standard contributeToGoal function with custom hold allocation drawer!
+        let holdTimer = null;
+        let holdStartTime = 0;
+        let activeContributingGoalId = null;
+
+        function contributeToGoal(goalId) {
+            const goal = state.savingsGoals.find(g => g.id === goalId);
+            if (!goal) return;
+
+            activeContributingGoalId = goalId;
+            document.getElementById("allocation-goal-name").innerText = goal.name;
+            document.getElementById("allocation-goal-target").innerText = `Target: ₹${goal.targetAmount.toLocaleString('en-IN')}`;
+            document.getElementById("allocation-amount-input").value = "";
+
+            openOverlayView("goal-contribution");
+            resetHoldButton();
+        }
+
+        function resetHoldButton() {
+            const progress = document.getElementById("hold-progress-border");
+            progress.style.transition = "none";
+            progress.style.borderTopColor = "transparent";
+            progress.style.borderRightColor = "transparent";
+            progress.style.borderBottomColor = "transparent";
+            progress.style.borderLeftColor = "transparent";
+
+            const btn = document.getElementById("gold-hold-trigger");
+            btn.style.transform = "scale(1)";
+            btn.style.boxShadow = "0 10px 25px rgba(0,0,0,0.5)";
+
+            document.getElementById("hold-label-text").innerText = "Hold 2s";
+            document.getElementById("hold-status-desc").innerText = "Press and hold the gold print to commit";
+        }
+
+        const holdTrigger = document.getElementById("gold-hold-trigger");
+        if (holdTrigger) {
+            const startHold = (e) => {
+                e.preventDefault();
+                const amtVal = parseFloat(document.getElementById("allocation-amount-input").value) || 0;
+                if (amtVal <= 0) {
+                    alert("Please enter a valid allocation amount first.");
+                    return;
+                }
+
+                const wallet = state.wallets[0];
+                if (wallet.currentBalance < amtVal) {
+                    alert(`Insufficient balance in ${wallet.name} (Available: ₹${wallet.currentBalance.toLocaleString('en-IN')}).`);
+                    return;
+                }
+
+                holdStartTime = Date.now();
+                holdTrigger.style.transform = "scale(0.95)";
+                holdTrigger.style.boxShadow = "0 0 20px rgba(197, 168, 128, 0.4)";
+                document.getElementById("hold-label-text").innerText = "Allocating...";
+                document.getElementById("hold-status-desc").innerText = "Holding...";
+
+                // Animate progress border
+                const progress = document.getElementById("hold-progress-border");
+                progress.style.transition = "border-color 2s steps(4)";
+                progress.style.borderTopColor = "var(--primary)";
+
+                setTimeout(() => { if (Date.now() - holdStartTime >= 500) progress.style.borderRightColor = "var(--primary)"; }, 500);
+                setTimeout(() => { if (Date.now() - holdStartTime >= 1000) progress.style.borderBottomColor = "var(--primary)"; }, 1000);
+                setTimeout(() => { if (Date.now() - holdStartTime >= 1500) progress.style.borderLeftColor = "var(--primary)"; }, 1500);
+
+                holdTimer = setTimeout(() => {
+                    confirmHoldContribution(amtVal);
+                }, 2000);
+            };
+
+            const endHold = () => {
+                clearTimeout(holdTimer);
+                resetHoldButton();
+            };
+
+            holdTrigger.addEventListener("mousedown", startHold);
+            holdTrigger.addEventListener("mouseup", endHold);
+            holdTrigger.addEventListener("mouseleave", endHold);
+            holdTrigger.addEventListener("touchstart", startHold);
+            holdTrigger.addEventListener("touchend", endHold);
+        }
+
+        function confirmHoldContribution(amount) {
+            const goal = state.savingsGoals.find(g => g.id === activeContributingGoalId);
+            const wallet = state.wallets[0];
+
+            wallet.currentBalance -= amount;
+            goal.currentAmount += amount;
+
+            const newTx = {
+                id: state.transactions.length + 1,
+                type: "SAVING",
+                amount: amount,
+                walletId: wallet.id,
+                categoryName: "Emergency Fund",
+                paymentMode: "Internet Banking",
+                tags: ["#SavingsGoals"],
+                description: `Goal Allocation: ${goal.name}`,
+                timestamp: Date.now()
+            };
+            state.transactions.unshift(newTx);
+
+            if (window.navigator.vibrate) window.navigator.vibrate(100);
+
+            alert(`✅ Transaction Approved!\n\nSuccessfully allocated ₹${amount.toLocaleString('en-IN')} to "${goal.name}".`);
+
+            closeOverlayView("goal-contribution");
+
+            if (typeof calculateBalances === "function") calculateBalances();
+            if (typeof renderAnalyticsGoals === "function") renderAnalyticsGoals();
+        }
+
+        // Start application lifecycle
+        window.onload = function () {
+            calculateBalances();
+            renderHomeTransactions();
+            renderHomeDebts();
+            if (typeof renderHomeScheduledList === "function") renderHomeScheduledList();
+        }
+    </script>
+
+    <!-- ====== ADVANCED UI/UX JAVASCRIPT LOGIC ====== -->
+    <script>
+        // 1. Mouse Spotlight tracking
+        const cursorGlow = document.getElementById('cursor-glow');
+        document.addEventListener('mousemove', (e) => {
+            if (cursorGlow) {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+                cursorGlow.style.opacity = '1';
+            }
+        });
+        document.addEventListener('mouseleave', () => {
+            if (cursorGlow) cursorGlow.style.opacity = '0';
+        });
+
+        // 2. 3D Tilt Effect on Premium Cards
+        const init3DCards = () => {
+            const cards3D = document.querySelectorAll('.chart-card, .sum-card, .account-card-premium');
+            cards3D.forEach(card => {
+                // Remove old listeners if any by cloning
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = ((y - centerY) / centerY) * -6; // Max 6 deg tilt
+                    const rotateY = ((x - centerX) / centerX) * 6;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                });
+            });
+        };
+
+        // Init after brief delay to allow dynamic rendering
+        setTimeout(init3DCards, 500);
+    </script>
+
+</body>
+
+</html>

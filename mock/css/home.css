@@ -1,0 +1,308 @@
+        /* --- DASHBOARD WIDGETS --- */
+        .balance-header {
+            padding: 8px 8px 24px 8px;
+            text-align: center;
+        }
+
+        .balance-header label {
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .balance-header h2 {
+            font-size: 38px;
+            font-weight: 800;
+            margin: 4px 0 0 0;
+            color: var(--text-white);
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 30px rgba(197, 168, 128, 0.1);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .sum-card {
+            background-color: var(--surface-dark);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 14px 10px;
+            text-align: left;
+            box-shadow: var(--glow);
+            backdrop-filter: blur(10px);
+            transition: border-color 0.2s ease;
+        }
+
+        .sum-card:hover {
+            border-color: rgba(197, 168, 128, 0.3);
+        }
+
+        .sum-card .label-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .sum-card .label-row span.dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            box-shadow: 0 0 8px currentColor;
+        }
+
+        .sum-card h4 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text-white);
+            letter-spacing: -0.2px;
+        }
+
+        .chart-card {
+            background-color: var(--surface-dark);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 18px;
+            margin-bottom: 24px;
+            box-shadow: var(--glow);
+            backdrop-filter: blur(10px);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .chart-header h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+        }
+
+        .chart-header .chart-filter {
+            background-color: var(--primary-glow);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: 800;
+            color: var(--primary);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+        }
+
+        .chart-placeholder {
+            height: 120px;
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            padding-top: 10px;
+        }
+
+        .chart-bar-container {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .chart-bar {
+            width: 100%;
+            border-radius: 6px;
+            transition: height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            position: relative;
+            background: linear-gradient(to top, var(--primary) 0%, #E8D3B7 100%);
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        .chart-bar:hover {
+            filter: brightness(1.2);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .chart-bar-label {
+            font-size: 8px;
+            color: var(--text-secondary);
+            margin-top: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .section-title h3 {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+        }
+
+        .debt-carousel {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 24px;
+        }
+
+        .debt-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .debt-card-mock {
+            flex: 0 0 154px;
+            background-color: var(--surface-dark);
+            border-radius: 20px;
+            padding: 14px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 94px;
+            box-shadow: var(--glow);
+            backdrop-filter: blur(10px);
+            transition: border-color 0.2s ease;
+        }
+
+        .debt-card-mock:hover {
+            border-color: rgba(197, 168, 128, 0.3);
+        }
+
+        .debt-card-mock .meta {
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .debt-card-mock .name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-white);
+            margin: 2px 0 0 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .debt-card-mock .amt {
+            font-size: 15px;
+            font-weight: 800;
+            margin-top: 10px;
+        }
+
+        .tx-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tx-row {
+            background-color: var(--surface-dark);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: var(--glow);
+            backdrop-filter: blur(10px);
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .tx-row:hover {
+            background-color: var(--surface-variant);
+            border-color: rgba(197, 168, 128, 0.3);
+        }
+
+        .tx-row .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .tx-icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .tx-info {
+            min-width: 0;
+        }
+
+        .tx-info .title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-white);
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .tx-info .details {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 2px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .payment-tag {
+            background-color: rgba(197, 168, 128, 0.05);
+            color: var(--primary);
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 9px;
+            font-weight: 700;
+            border: 1px solid rgba(197, 168, 128, 0.1);
+        }
+
+        .tx-row .amt {
+            font-size: 15px;
+            font-weight: 800;
+            padding-left: 10px;
+            white-space: nowrap;
+        }
+
+        .tx-tag-pill {
+            background-color: rgba(255, 215, 0, 0.06);
+            color: var(--primary);
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 9px;
+            font-weight: 700;
+            border: 1px solid rgba(255, 215, 0, 0.18);
+            text-shadow: 0 0 2px rgba(255, 215, 0, 0.1);
+            letter-spacing: 0.2px;
+        }
+
